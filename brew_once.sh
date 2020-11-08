@@ -14,8 +14,10 @@ brew tap homebrew/cask-fonts
 brew tap homebrew/bundle
 brew tap homebrew/services
 
-
 brew install curl wget git
+
+# iterm2
+brew install iterm2
 
 ## oh-my-zsh
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
