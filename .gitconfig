@@ -1,0 +1,45 @@
+[includeIf "gitdir:~/git/"]
+  path = ~/git/.gitconfig
+[includeIf "gitdir:~/github/"]
+  path = ~/github/.gitconfig
+[credential]
+  helper = osxkeychain
+[core]
+  autocrlf = input # tells Git to convert CRLF to LF on commit, line endings should be LF in the repository
+  eol = lf # makes sure text files bear LF line endings on checkouts
+  fileMode = false # ignores filemode differences
+  editor = code --wait
+  pager = less -F -X
+  ignorecase = false
+[color] # shows colors in the terminal, if supported
+  branch = always
+  diff = always
+  status = always
+  showbranch = always
+  ui = always
+[log]
+  reverse = false
+[alias]
+  lg = log --reverse --oneline
+  st = status
+  ci = commit
+  co = checkout
+  coa = checkout .
+  br = branch
+  unstage = reset HEAD --
+  last = log -1 HEAD
+  branchdate = !git for-each-ref --sort='authordate' --format='%(authordate:iso8601)%09%(objectname:short)%09%(refname)' refs/heads | sed -e 's-refs/heads/--'
+  update-from = "!f() { git fetch $1 --prune; git merge --ff-only $1/$2 || git rebase --preserve-merges $1/$2; }; f"
+  local-branches = !git branch -vv | cut -c 3- | awk '$3 !~/\\[/ { print $1 }'
+  stash-staged = "!bash -c \"git stash --keep-index; git stash push -m \"staged `date +%Y-%m-%d-%H:%M`\" --keep-index; git stash pop stash@{1}\""
+[push]
+  followTags = false
+[merge]
+  tool = vscode
+  ff = only
+[mergetool "vscode"]
+  cmd = code --wait $MERGED
+[diff]
+  tool = vscode
+[difftool "vscode"]
+  cmd = code --wait --diff $LOCAL $REMOTE
