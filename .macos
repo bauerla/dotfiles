@@ -12,6 +12,7 @@ while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 # Check and install system updates
 sudo softwareupdate -ia --restart
 
+
 ####################################
 # System
 
@@ -219,7 +220,7 @@ defaults write com.apple.CrashReporter DialogType none
 
 
 ####################################
-# User Apps
+# App specific configurations
 
 # Iterm2
 # don’t display the annoying prompt when quitting iTerm
@@ -228,9 +229,6 @@ defaults write com.googlecode.iterm2 PromptOnQuit -bool false
 defaults write com.googlecode.iterm2.plist PrefsCustomFolder -string "~/iterm2"
 # use the custom preferences in the directory
 defaults write com.googlecode.iterm2.plist LoadPrefsFromCustomFolder -bool true
-# install iterm2 shell integration (file sourced in .zshrc)
-curl -L https://iterm2.com/shell_integration/zsh \
--o ~/.iterm2_shell_integration.zsh
 
 # Chrome: disable two finger back/forward in Chrome
 defaults write com.google.Chrome AppleEnableSwipeNavigateWithScrolls -bool false
@@ -249,7 +247,9 @@ defaults write org.n8gray.QLColorCode fontSizePoints 10
 defaults write org.n8gray.QLColorCode hlTheme zenburn
 defaults write org.n8gray.QLColorCode extraHLFlags "-W -J 160"
 
-
 ####################################
 # Restart all affected apps
 for app in Safari Finder Dock SystemUIServer; do killall "$app" >/dev/null 2>&1; done
+
+echo "iTerm2 will terminate now to apply changes..."
+osascript -e 'tell application "iTerm" to quit'

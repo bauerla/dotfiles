@@ -1,13 +1,41 @@
 #!/bin/zsh
 
+BREW_PREFIX=$(brew --prefix)
+
+# Run only if homebrew not installed
+#   Homebrew & related tools
+#   iterm2 & its shell integration
+#   oh-my-zsh
+if [ ! $(which brew) ]; then
+	/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
+
+	brew update
+	brew upgrade
+
+	brew tap homebrew/cask
+	brew tap homebrew/cask-versions
+	brew tap homebrew/cask-fonts
+	brew tap homebrew/bundle
+	brew tap homebrew/services
+
+	brew install curl wget git
+
+	# iterm2 & its shell integration (sourced in .zshrc)
+	brew install iterm2
+
+	curl -L https://iterm2.com/shell_integration/zsh \
+		-o ~/.iterm2_shell_integration.zsh
+
+	## oh-my-zsh
+	sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+fi
+
 brew update
 brew upgrade
 
 # App taps
 brew tap teamookla/speedtest
 brew tap romkatv/powerlevel10k
-
-BREW_PREFIX=$(brew --prefix)
 
 # coreutils
 brew install coreutils
