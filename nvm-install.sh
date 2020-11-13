@@ -4,7 +4,7 @@
 # default is same as installed version: "lts/*" 
 
 # install nvm and source .zshrc to load nvm
-curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.37.0/install.sh | zsh
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.37.0/install.sh | PROFILE=/dev/null zsh
 
 source ~/.zshrc
 
