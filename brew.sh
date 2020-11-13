@@ -1,12 +1,10 @@
 #!/bin/zsh
 
-BREW_PREFIX=$(brew --prefix)
-
 # Run only if homebrew not installed
 #   Homebrew & related tools
 #   iterm2 & its shell integration
 #   oh-my-zsh
-if [ ! $(which brew) ]; then
+if [[ $(command -v brew) == "" ]]; then
   /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
 
   brew update
@@ -28,10 +26,12 @@ if [ ! $(which brew) ]; then
 
   ## oh-my-zsh
   sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+else
+  brew update
+  brew upgrade
 fi
 
-brew update
-brew upgrade
+BREW_PREFIX=$(brew --prefix)
 
 # App taps
 brew tap teamookla/speedtest
