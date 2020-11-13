@@ -1,5 +1,7 @@
 #!/bin/zsh
 
+COMPUTER_NAME=${1:-$COMPUTER_NAME} 
+
 # close any system preference windows first
 osascript -e 'tell application "System Preferences" to quit'
 
@@ -14,20 +16,27 @@ while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 # System
 
 # Set computer name (System Preferences -> Sharing) - variable in .env file
-sudo scutil --set ComputerName "${COMPUTER_NAME}"
-sudo scutil --set HostName "${COMPUTER_NAME}"
-sudo scutil --set LocalHostName "${COMPUTER_NAME}"
-sudo defaults write /Library/Preferences/SystemConfiguration/com.apple.smb.server NetBIOSName -string "${COMPUTER_NAME}"
+# set hostname
+if [[ "$COMPUTER_NAME" != "" ]]; then
+  sudo scutil --set ComputerName "${COMPUTER_NAME}"
+  sudo scutil --set HostName "${COMPUTER_NAME}"
+  sudo scutil --set LocalHostName "${COMPUTER_NAME}"
+  sudo defaults write /Library/Preferences/SystemConfiguration/com.apple.smb.server NetBIOSName -string "${COMPUTER_NAME}"
+else
+	echo "Give Computer name as first argument or define 'COMPUTER_NAME' env variable"
+	exit 1;
+fi
 
 # Disable the sound effects on boot
 sudo nvram SystemAudioVolume=" "
 
 # Enable Firewall
+echo -e "\nEnabling FireWall..."
 sudo /usr/libexec/ApplicationFirewall/socketfilterfw --setglobalstate on
 
 # Enable FileVault
+test $(fdesetup isactive) || echo -e "\nEnabling FileVault..." && sudo fdesetup enable
 sudo fdesetup status
-test $(fdesetup isactive) || sudo fdesetup enable
 
 # Increase Bluetooth audio quality
 defaults write com.apple.BluetoothAudioAgent "Apple Bitpool Min (editable)" -int 40
@@ -53,7 +62,7 @@ defaults write -g NSAutomaticSpellingCorrectionEnabled -bool false
 defaults write -g NSAutomaticQuoteSubstitutionEnabled -bool false
 defaults write -g NSAutomaticDashSubstitutionEnabled -bool false
 
-# Use keyboard navigation to move focus between controls (tab-tab for everything): System & Safaris
+# Use keyboard navigation to move focus between controls (tab-tab for everything): System & Safari
 defaults write -g AppleKeyboardUIMode -int 3
 defaults write com.apple.Safari WebKitTabToLinksPreferenceKey -bool false
 
