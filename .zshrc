@@ -79,12 +79,13 @@ plugins=(git dotenv)
 
 source $ZSH/oh-my-zsh.sh
 
-# Iterm shell integration
-source ~/.iterm2_shell_integration.zsh
-
 # User configuration
 
 # export MANPATH="/usr/local/man:$MANPATH"
+export PATH="/usr/local/sbin:$PATH"
+
+# Iterm shell integration
+source ~/.iterm2_shell_integration.zsh
 
 # You may need to manually set your language environment
 export LANG=en_US.UTF-8
@@ -95,7 +96,6 @@ if [[ -n $SSH_CONNECTION ]]; then
 else
   export EDITOR="code -w"
 fi
-
 
 setopt NO_CASE_GLOB
 setopt AUTO_CD
