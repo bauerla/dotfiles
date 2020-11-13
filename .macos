@@ -1,5 +1,5 @@
 #!/bin/zsh
-
+# hostname from as first argument or env variable
 COMPUTER_NAME=${1:-$COMPUTER_NAME} 
 
 # close any system preference windows first
@@ -23,8 +23,7 @@ if [[ "$COMPUTER_NAME" != "" ]]; then
   sudo scutil --set LocalHostName "${COMPUTER_NAME}"
   sudo defaults write /Library/Preferences/SystemConfiguration/com.apple.smb.server NetBIOSName -string "${COMPUTER_NAME}"
 else
-	echo "Give Computer name as first argument or define 'COMPUTER_NAME' env variable"
-	exit 1;
+  echo "To set Computer name provide it as the first argument or define 'COMPUTER_NAME' env variable"
 fi
 
 # Disable the sound effects on boot
