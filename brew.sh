@@ -55,8 +55,8 @@ brew install htop-osx pidof pstree grep nmap rename ssh-copy-id tree
 # Package/version managers
 brew install yarn pyenv
 
-# Archive & Git
-brew install xz p7zip git rsync
+# Archive
+brew install xz p7zip rsync
 
 # Images & video
 brew install imagemagick ffmpeg
