@@ -101,12 +101,14 @@ brew cask install font-hack-nerd-font
 # Screensavers
 brew cask install aerial brooklyn developerexcuses
 
+
 ################################
 # App Store apps
 
 mas install 595191960 # CopyClip
 mas install 748212890 # Memory Diag
 #brew mas install 497799835 # Xcode
+
 
 ################################
 # Final cleanup & checks
