@@ -25,7 +25,7 @@ if [[ $(command -v brew) == "" ]]; then
   -o ~/.iterm2_shell_integration.zsh
 
   ## oh-my-zsh
-  sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
+  sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended --keep-zshrc
 else
   brew update
   brew upgrade
