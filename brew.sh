@@ -1,22 +1,24 @@
 #!/bin/zsh
 
-# Run only if homebrew not installed
-#   Homebrew & related tools
-#   iterm2 & its shell integration
-#   oh-my-zsh
 if [[ $(command -v brew) == "" ]]; then
-  /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
+  # Run only if homebrew not installed
+  /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+  
+  brew analytics off # disable analytics
 
-  brew update
-  brew upgrade
-
+  # App taps & update
   brew tap homebrew/cask
   brew tap homebrew/cask-versions
   brew tap homebrew/cask-fonts
   brew tap homebrew/bundle
-  brew tap homebrew/services
+  
+  brew tap teamookla/speedtest
+  
+  brew update
+  brew upgrade
 
-  brew install curl wget git
+  brew install brew-cask-completion
+  brew install wget git
 
   # iterm2 & its shell integration (sourced in .zshrc)
   brew install iterm2
@@ -33,30 +35,25 @@ fi
 
 BREW_PREFIX=$(brew --prefix)
 
-# App taps
-brew tap teamookla/speedtest
-brew tap romkatv/powerlevel10k
-
 # coreutils
 brew install coreutils
 ln -s "${BREW_PREFIX}/bin/gsha256sum" "${BREW_PREFIX}/bin/sha256sum"
 ln -s "${BREW_PREFIX}/bin/greadlink" "${BREW_PREFIX}/bin/readlink"
 
-brew install moreutils
 brew install findutils
 brew install gnu-sed
-brew install gnu-tar gawk gnutls gnupg gnu-indent gnu-getopt
+brew install gnu-tar gawk gnutls gnupg gnu-indent
 
 ln -s "${BREW_PREFIX}/bin/gtar" "${BREW_PREFIX}/bin/tar"
 
 # System
-brew install htop-osx pidof pstree grep nmap rename ssh-copy-id tree
+brew install htop pidof pstree rename tree
 
 # Package/version managers
 brew install yarn pyenv
 
 # Archive
-brew install xz p7zip rsync
+brew install p7zip rsync
 
 # Images & video
 brew install imagemagick ffmpeg
@@ -65,49 +62,55 @@ brew install imagemagick ffmpeg
 brew install jq jo
 
 # Utils
-brew install pandoc pv highlight thefuck zsh-syntax-highlighting teamookla/speedtest/speedtest
+brew install pandoc pv thefuck speedtest
 
-# Powelevel10k for Zsh
-brew install romkatv/powerlevel10k/powerlevel10k
+# Zsh & Powelevel10k
+brew install zsh-syntax-highlighting romkatv/powerlevel10k/powerlevel10k
 
 
 ################################
 # Casks
 
 # Browsers
-brew cask install firefox google-chrome
+brew install firefox google-chrome
 
 # Editors
-brew cask install visual-studio-code textmate
-#brew cask install java android-studio
-#brew cask install docker
+brew install visual-studio-code textmate
+#brew install java android-studio
+#brew install docker
 
 # Media
-brew cask install vlc spotify slack
+brew install vlc spotify slack
 
 # Image
-brew cask install gimp inkscape skitch
+brew install gimp inkscape skitch
 
 # Utils
-brew cask install bitwarden forklift spectacle suspicious-package the-unarchiver virtualbox
-brew cask install qlcolorcode qlimagesize qlstephen quicklook-json
+brew install bitwarden forklift spectacle suspicious-package the-unarchiver virtualbox
+brew install syntax-highlight
 
 # Fonts
-brew cask install font-jetbrains-mono font-jetbrains-mono-nerd-font
-brew cask install font-fira-code font-fira-code-nerd-font
-brew cask install font-meslo-for-powerline font-meslo-lg-nerd-font
-brew cask install font-hack-nerd-font
+brew instal font-jetbrains-mono-nerd-font # VSCode
+brew install font-meslo-lg-nerd-font # iTerm2
+#brew install font-fira-code-nerd-font
+#brew install font-hack-nerd-font
 
 # Screensavers
-brew cask install aerial brooklyn developerexcuses
+brew install aerial brooklyn developerexcuses
 
+################################
+# From local Brewfile
+if [ -f Brewfile ]; then
+	brew bundle install --verbose
+fi
 
 ################################
 # App Store apps
+brew install mas
 
 mas install 595191960 # CopyClip
 mas install 748212890 # Memory Diag
-#brew mas install 497799835 # Xcode
+#mas install 497799835 # Xcode
 
 
 ################################
