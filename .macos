@@ -37,6 +37,10 @@ sudo /usr/libexec/ApplicationFirewall/socketfilterfw --setglobalstate on
 test $(fdesetup isactive) || echo -e "\nEnabling FileVault..." && sudo fdesetup enable
 sudo fdesetup status
 
+# Other security hardening
+defaults write /Library/Preferences/.GlobalPreferences MultipleSessionEnabled -bool false # disable fast user switch
+sudo pmset destroyfvkeyonstandby 1 # remove FileVault keys in memory when standby mode
+
 # Increase Bluetooth audio quality
 defaults write com.apple.BluetoothAudioAgent "Apple Bitpool Min (editable)" -int 40
 
@@ -99,16 +103,17 @@ defaults write -g CGFontRenderingFontSmoothingDisabled -bool false
 # Dock & Menu bar 
 
 # Menu
-defaults write com.apple.menuextra.battery ShowPercent -bool true
+defaults write com.apple.menuextra.battery ShowPercent -string "Yes"
 defaults write com.apple.menuextra.battery ShowTime -bool false
 
 # Dock
-defaults write com.apple.dock autohide -bool false
+defaults write com.apple.dock presistent-apps -array # remove stock apps
+defaults write com.apple.dock autohide -bool true
 defaults write com.apple.dock autohide-delay -float 0
 defaults write com.apple.dock autohide-time-modifier -float 0.2
 defaults write com.apple.dock magnification -bool false
 defaults write com.apple.dock show-recents -bool false
-defaults write com.apple.dock tilesize -int 36
+defaults write com.apple.dock tilesize -int 40
 defaults write com.apple.dock dashboard-in-overlay -bool true
 defaults write -g AppleEnableMenuBarTransparency -bool false
 defaults write -g FXEnableSlowAnimation -bool false
@@ -243,14 +248,6 @@ defaults write com.microsoft.VSCode CGFontRenderingFontSmoothingDisabled -bool f
 defaults write com.microsoft.VSCode.helper CGFontRenderingFontSmoothingDisabled -bool false
 defaults write com.microsoft.VSCode.helper.EH CGFontRenderingFontSmoothingDisabled -bool false
 defaults write com.microsoft.VSCode.helper.NP CGFontRenderingFontSmoothingDisabled -bool false
-
-# QLColorCode: custom settings (https://github.com/anthonygelibert/QLColorCode)
-defaults write org.n8gray.QLColorCode textEncoding UTF-16
-defaults write org.n8gray.QLColorCode webkitTextEncoding UTF-16
-defaults write org.n8gray.QLColorCode font "Source Code Pro"
-defaults write org.n8gray.QLColorCode fontSizePoints 10
-defaults write org.n8gray.QLColorCode hlTheme zenburn
-defaults write org.n8gray.QLColorCode extraHLFlags "-W -J 160"
 
 ####################################
 # Restart all affected apps
