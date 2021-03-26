@@ -26,6 +26,10 @@ if [[ $(command -v brew) == "" ]]; then
   curl -L https://iterm2.com/shell_integration/zsh \
   -o ~/.iterm2_shell_integration.zsh
 
+  # Zsh plugins (plugins section in .zshrc)
+  git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+  git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
+
   ## oh-my-zsh
   sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended --keep-zshrc
 else
@@ -65,7 +69,7 @@ brew install jq jo
 brew install pandoc pv thefuck speedtest
 
 # Zsh & Powelevel10k
-brew install zsh-syntax-highlighting romkatv/powerlevel10k/powerlevel10k
+brew install romkatv/powerlevel10k/powerlevel10k
 
 
 ################################
@@ -90,7 +94,7 @@ brew install bitwarden forklift spectacle suspicious-package the-unarchiver virt
 brew install syntax-highlight
 
 # Fonts
-brew instal font-jetbrains-mono-nerd-font # VSCode
+brew install font-jetbrains-mono-nerd-font # VSCode
 brew install font-meslo-lg-nerd-font # iTerm2
 #brew install font-fira-code-nerd-font
 #brew install font-hack-nerd-font
