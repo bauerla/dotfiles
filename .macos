@@ -60,7 +60,8 @@ defaults -currentHost write -g com.apple.trackpad.trackpadCornerClickBehavior -i
 defaults -currentHost write -g com.apple.trackpad.enableSecondaryClick -bool true
 
 # Keyboard: repeat and autocorrection settings
-defaults write -g KeyRepeat -int 0
+defaults write -g InitialKeyRepeat -int 10 # normal minimum is 15 (225 ms)
+defaults write -g KeyRepeat -int 2 # normal minimum (30 ms)
 defaults write -g NSAutomaticSpellingCorrectionEnabled -bool false
 defaults write -g NSAutomaticQuoteSubstitutionEnabled -bool false
 defaults write -g NSAutomaticDashSubstitutionEnabled -bool false
