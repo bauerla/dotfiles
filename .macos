@@ -99,12 +99,15 @@ defaults write com.apple.mail DisableSendAnimations -bool false
 # Enable font subpixel anti-aliasing (revert if any problems occurs)
 defaults write -g CGFontRenderingFontSmoothingDisabled -bool false
 
+# Disable font smoothing. Values 0-3
+defaults -currentHost write -g AppleFontSmoothing -int 0
+
 
 ####################################
 # Dock & Menu bar 
 
 # Menu
-defaults write com.apple.menuextra.battery ShowPercent -string "Yes"
+defaults write com.apple.menuextra.battery ShowPercent -string "YES"
 defaults write com.apple.menuextra.battery ShowTime -bool false
 
 # Dock
