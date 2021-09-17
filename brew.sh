@@ -90,7 +90,7 @@ brew install vlc spotify slack
 brew install gimp inkscape skitch
 
 # Utils
-brew install bitwarden forklift spectacle suspicious-package the-unarchiver virtualbox
+brew install bitwarden forklift spectacle suspicious-package the-unarchiver virtualbox onyx appcleaner
 brew install syntax-highlight
 
 # Fonts
