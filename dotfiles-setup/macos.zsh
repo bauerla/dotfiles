@@ -1,4 +1,5 @@
 #!/bin/zsh
+
 # hostname from as first argument or env variable
 COMPUTER_NAME=${1:-$COMPUTER_NAME} 
 
