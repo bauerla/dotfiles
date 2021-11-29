@@ -20,12 +20,6 @@
 [log]
   reverse = false
 [alias]
-  lg = log --reverse --oneline
-  st = status
-  ci = commit
-  co = checkout
-  coa = checkout .
-  br = branch
 	gprbm = pull --rebase origin master
   unstage = reset HEAD --
   last = log -1 HEAD
