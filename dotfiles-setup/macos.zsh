@@ -1,5 +1,9 @@
 #!/bin/zsh
 
+# Change Os X default values
+#
+# −g | −globalDomain | NSGlobalDomain
+
 # hostname from as first argument or env variable
 COMPUTER_NAME=${1:-$COMPUTER_NAME} 
 
@@ -24,8 +28,14 @@ if [[ "$COMPUTER_NAME" != "" ]]; then
   sudo scutil --set LocalHostName "${COMPUTER_NAME}"
   sudo defaults write /Library/Preferences/SystemConfiguration/com.apple.smb.server NetBIOSName -string "${COMPUTER_NAME}"
 else
-  echo "To set Computer name provide it as the first argument or define 'COMPUTER_NAME' env variable"
+  print -P "%F{yellow}To set Computer name provide it as the first argument or define 'COMPUTER_NAME' env variable%f\n"
 fi
+
+print -P "%F{green}Network names are:%f"
+echo "\tComputerName:\t $(sudo scutil --get ComputerName)"
+echo "\tHostName:\t $(sudo scutil --get HostName)"
+echo "\tLocalHostName:\t $(sudo scutil --get LocalHostName)"
+echo "\tNetBIOSName:\t $(sudo defaults read /Library/Preferences/SystemConfiguration/com.apple.smb.server NetBIOSName)\n"
 
 # Disable the sound effects on boot
 sudo nvram SystemAudioVolume=" "
@@ -256,7 +266,7 @@ defaults write com.microsoft.VSCode.helper.NP CGFontRenderingFontSmoothingDisabl
 
 ####################################
 # Restart all affected apps
-for app in Safari Finder Dock SystemUIServer; do killall "$app" >/dev/null 2>&1; done
+for app in Safari Finder Dock SystemUIServer iTerm2; do killall "$app" >/dev/null 2>&1; done
 
 echo "iTerm2 will terminate now to apply changes..."
 osascript -e 'tell application "iTerm" to quit'
