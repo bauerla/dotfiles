@@ -90,9 +90,6 @@ source $ZSH/oh-my-zsh.sh
 # export MANPATH="/usr/local/man:$MANPATH"
 export PATH="/usr/local/sbin:$PATH"
 
-# Iterm shell integration
-source ~/.iterm2_shell_integration.zsh
-
 # You may need to manually set your language environment
 export LANG=en_US.UTF-8
 
@@ -110,17 +107,22 @@ setopt AUTO_CD
 HISTFILE=${ZDOTDIR:-$HOME}/.zsh_history
 HISTSIZE=100000
 SAVEHIST=100000
-setopt APPEND_HISTORY							# append to history
-setopt EXTENDED_HISTORY						# additional history info
-setopt INC_APPEND_HISTORY					# adds commands as they are typed, not at shell exit
-setopt HIST_EXPIRE_DUPS_FIRST			# expire duplicates first
-setopt HIST_IGNORE_DUPS						# do not store duplications
-#setopt HIST_FIND_NO_DUPS					# ignore duplicates when searching (disable if above set)
-setopt HIST_IGNORE_SPACE					# ignore commands that start with space
-setopt HIST_REDUCE_BLANKS					# removes blank lines from history
-setopt HIST_VERIFY								# show substituted command for editing
-setopt SHARE_HISTORY							# share history across multiple zsh sessions
-export HISTTIMEFORMAT="[%F %T] "	# history time format
+setopt INC_APPEND_HISTORY         # append to history
+setopt EXTENDED_HISTORY           # additional history info
+setopt INC_APPEND_HISTORY         # adds commands as they are typed, not at shell exit
+setopt HIST_EXPIRE_DUPS_FIRST     # expire duplicates first
+setopt HIST_IGNORE_DUPS           # do not store duplications
+#setopt HIST_FIND_NO_DUPS         # ignore duplicates when searching (disable if above set)
+setopt HIST_IGNORE_SPACE          # ignore commands that start with space
+setopt HIST_REDUCE_BLANKS         # removes blank lines from history
+setopt HIST_VERIFY                # show substituted command for editing
+setopt SHARE_HISTORY              # share history across multiple zsh sessions
+export HISTTIMEFORMAT="[%F %T] "  # history time format
+
+# Iterm shell integration
+if [[ "$TERM_PROGRAM" != "iTerm.app" ]]; then
+  source ~/.iterm2_shell_integration.zsh
+fi
 
 # pyenv
 export PYENV_ROOT="$HOME/.pyenv"
@@ -132,13 +134,20 @@ fi
 # gnu
 export PATH="/usr/local/opt/gnu-sed/libexec/gnubin:$PATH"
 
+# Android Studio
+export ANDROID_HOME=$HOME/Library/Android/sdk
+export PATH=$PATH:$ANDROID_HOME/emulator
+export PATH=$PATH:$ANDROID_HOME/tools
+export PATH=$PATH:$ANDROID_HOME/tools/bin
+export PATH=$PATH:$ANDROID_HOME/platform-tools
+
 # thefuck
 eval $(thefuck --alias)
 eval $(thefuck --alias F)
 
-# zsh-syntax-highlight has to be sourced last
-source /usr/local/opt/powerlevel10k/powerlevel10k.zsh-theme
-source $ZSH_CUSTOM/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
+# zsh-syntax-highlight has to be sourced last
+source $ZSH_CUSTOM/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source /usr/local/opt/powerlevel10k/powerlevel10k.zsh-theme
