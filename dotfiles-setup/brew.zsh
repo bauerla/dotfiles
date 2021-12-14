@@ -3,7 +3,7 @@
 if [[ $(command -v brew) == "" ]]; then
   # Run only if homebrew not installed
   /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-  
+
   brew analytics off # disable analytics
 
   # App taps & update
@@ -11,9 +11,9 @@ if [[ $(command -v brew) == "" ]]; then
   brew tap homebrew/cask-versions
   brew tap homebrew/cask-fonts
   brew tap homebrew/bundle
-  
+
   brew tap teamookla/speedtest
-  
+
   brew update
   brew upgrade
 
@@ -27,10 +27,11 @@ if [[ $(command -v brew) == "" ]]; then
   -o ~/.iterm2_shell_integration.zsh
 
   # Zsh plugins (plugins section in .zshrc)
-  git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
-  git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
+  git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-$HOME/custom}/plugins/zsh-autosuggestions
+  git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-$HOME/custom}/plugins/zsh-syntax-highlighting
+  git clone https://github.com/lukechilds/zsh-nvm ${ZSH_CUSTOM:-$HOME/custom}/plugins/zsh-nvm
 
-  ## oh-my-zsh
+  ## oh-my-zsh (keep existing .zshrc file)
   sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended --keep-zshrc
 else
   brew update
