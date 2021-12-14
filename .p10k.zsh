@@ -1025,7 +1025,7 @@
   # Show node version only when in a directory tree containing package.json.
   typeset -g POWERLEVEL9K_NODE_VERSION_PROJECT_ONLY=true
   # Custom icon.
-  # typeset -g POWERLEVEL9K_NODE_VERSION_VISUAL_IDENTIFIER_EXPANSION='⭐'
+  typeset -g POWERLEVEL9K_NODE_VERSION_VISUAL_IDENTIFIER_EXPANSION=$'\uf898'
 
   #######################[ go_version: go version (https://golang.org) ]########################
   # Go version color.
@@ -1640,7 +1640,7 @@
   # For example, you can type POWERLEVEL9K_BACKGROUND=red and see your prompt turn red. Hot reload
   # can slow down prompt by 1-2 milliseconds, so it's better to keep it turned off unless you
   # really need it.
-  typeset -g POWERLEVEL9K_DISABLE_HOT_RELOAD=true
+  typeset -g POWERLEVEL9K_DISABLE_HOT_RELOAD=false
 
   # If p10k is already loaded, reload configuration.
   # This works even with POWERLEVEL9K_DISABLE_HOT_RELOAD=true.
