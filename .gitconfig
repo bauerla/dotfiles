@@ -5,22 +5,19 @@
 [credential]
   helper = osxkeychain
 [core]
-  autocrlf = input # tells Git to convert CRLF to LF on commit, line endings should be LF in the repository
-  eol = lf # makes sure text files bear LF line endings on checkouts
+  autocrlf = input # Convert CRLF to LF on commit, line endings should be LF in the repository
+  eol = lf # default: native. makes sure to have LF line endings on checkouts
   fileMode = false # ignores filemode differences
   editor = code --wait
   pager = less -F -X
   ignorecase = false
-[color] # shows colors in the terminal, if supported
-  branch = always
-  diff = always
-  status = always
-  showbranch = always
-  ui = always
+[color]
+  ui = auto
 [log]
   reverse = false
 [alias]
 	gprbm = pull --rebase origin master
+	gpullstash = !git fetch --all && git stash && git merge @{upstream} && git stash pop
   unstage = reset HEAD --
   last = log -1 HEAD
   branchdate = !git for-each-ref --sort='authordate' --format='%(authordate:iso8601)%09%(objectname:short)%09%(refname)' refs/heads | sed -e 's-refs/heads/--'
