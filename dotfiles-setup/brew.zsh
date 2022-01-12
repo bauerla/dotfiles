@@ -3,8 +3,18 @@
 if [[ $(command -v brew) == "" ]]; then
   # Run only if homebrew not installed
   /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+	
+	# if Apple M1 add brew to PATH instructed by brew
+	if [[ `uname -m` == 'arm64' ]]; then
+		echo 'eval $(/opt/homebrew/bin/brew shellenv)' >> /Users/$(whoami)/.zprofile
+		eval $(/opt/homebrew/bin/brew shellenv)
+	fi
 
   brew analytics off # disable analytics
+
+	# update & upgrade
+  brew update
+  brew upgrade
 
   # App taps & update
   brew tap homebrew/cask
@@ -13,9 +23,6 @@ if [[ $(command -v brew) == "" ]]; then
   brew tap homebrew/bundle
 
   brew tap teamookla/speedtest
-
-  brew update
-  brew upgrade
 
   brew install brew-cask-completion
   brew install wget git
@@ -34,6 +41,7 @@ if [[ $(command -v brew) == "" ]]; then
   ## oh-my-zsh (keep existing .zshrc file)
   sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended --keep-zshrc
 else
+	# update & upgrade existing
   brew update
   brew upgrade
 fi
@@ -110,14 +118,16 @@ if [ -f Brewfile ]; then
 fi
 
 ################################
-# App Store apps
+# App Store apps. Commenting out the package will not try to install Apps either
 brew install mas
 
-mas install 595191960 # CopyClip
-mas install 748212890 # Memory Diag
-#mas install 497799835 # Xcode
+if brew ls --versions mas > /dev/null; then
+	mas install 595191960 # CopyClip
+	mas install 748212890 # Memory Diag
+	#mas install 497799835 # Xcode
+fi
 
 
 ################################
-# Final cleanup & checks
-brew cleanup && brew doctor
+# Final check for any issues and cleanup
+brew cleanup & brew doctor
