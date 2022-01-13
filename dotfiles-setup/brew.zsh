@@ -30,16 +30,15 @@ if [[ $(command -v brew) == "" ]]; then
   # iterm2 & its shell integration (sourced in .zshrc)
   brew install iterm2
 
-  curl -L https://iterm2.com/shell_integration/zsh \
-  -o ~/.iterm2_shell_integration.zsh
+  curl -L https://iterm2.com/shell_integration/zsh -o $HOME/.iterm2_shell_integration.zsh
+
+  # oh-my-zsh (keep existing .zshrc file)
+  sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended --keep-zshrc
 
   # Zsh plugins (plugins section in .zshrc)
   git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-$HOME/custom}/plugins/zsh-autosuggestions
   git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-$HOME/custom}/plugins/zsh-syntax-highlighting
   git clone https://github.com/lukechilds/zsh-nvm ${ZSH_CUSTOM:-$HOME/custom}/plugins/zsh-nvm
-
-  ## oh-my-zsh (keep existing .zshrc file)
-  sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended --keep-zshrc
 else
   # update & upgrade existing
   brew update
