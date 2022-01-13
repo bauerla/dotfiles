@@ -67,7 +67,7 @@ DISABLE_UNTRACKED_FILES_DIRTY="true"
 # see 'man strftime' for details.
 # HIST_STAMPS="mm/dd/yyyy"
 
-# Would you like to use another custom folder than $ZSH/custom?
+# ZSH custom folder according to Dotfiles
 ZSH_CUSTOM=$HOME/.oh-my-zsh-custom
 
 # zsh-nvm - settings has to be before plugin init
@@ -111,7 +111,7 @@ setopt INC_APPEND_HISTORY         # append to history
 setopt EXTENDED_HISTORY           # additional history info
 setopt INC_APPEND_HISTORY         # adds commands as they are typed, not at shell exit
 setopt HIST_EXPIRE_DUPS_FIRST     # expire duplicates first
-setopt HIST_IGNORE_DUPS           # do not store duplications
+setopt HIST_IGNORE_DUPS           # do not store duplicates
 #setopt HIST_FIND_NO_DUPS         # ignore duplicates when searching (disable if above set)
 setopt HIST_IGNORE_SPACE          # ignore commands that start with space
 setopt HIST_REDUCE_BLANKS         # removes blank lines from history
@@ -140,6 +140,9 @@ export PATH=$PATH:$ANDROID_HOME/emulator
 export PATH=$PATH:$ANDROID_HOME/tools
 export PATH=$PATH:$ANDROID_HOME/tools/bin
 export PATH=$PATH:$ANDROID_HOME/platform-tools
+
+# flutter
+export PATH="$PATH:`pwd`/flutter/bin"
 
 # thefuck
 eval $(thefuck --alias)
