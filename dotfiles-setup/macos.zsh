@@ -266,7 +266,7 @@ defaults write com.microsoft.VSCode.helper.NP CGFontRenderingFontSmoothingDisabl
 
 ####################################
 # Restart all affected apps
-for app in Safari Finder Dock SystemUIServer iTerm2; do killall "$app" >/dev/null 2>&1; done
+for app in Safari Finder Dock SystemUIServer; do killall "$app" >/dev/null 2>&1; done
 
 echo "iTerm2 will terminate now to apply changes..."
 osascript -e 'tell application "iTerm" to quit'
