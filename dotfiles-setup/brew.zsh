@@ -1,7 +1,7 @@
 #!/bin/zsh
 
+# Run only if homebrew not installed yet
 if [[ $(command -v brew) == "" ]]; then
-  # Run only if homebrew not installed
   /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 
   # if Apple M1 add brew to PATH instructed by brew
@@ -10,42 +10,46 @@ if [[ $(command -v brew) == "" ]]; then
     eval $(/opt/homebrew/bin/brew shellenv)
   fi
 
+  # disable analytics
   brew analytics off # disable analytics
-
-  # update & upgrade
-  brew update
-  brew upgrade
-
-  # App taps & update
-  brew tap homebrew/cask
-  brew tap homebrew/cask-versions
-  brew tap homebrew/cask-fonts
-  brew tap homebrew/bundle
-
-  brew tap teamookla/speedtest
-
-  brew install brew-cask-completion
-  brew install wget git
-
-  # iterm2 & its shell integration (sourced in .zshrc)
-  brew install iterm2
-
-  curl -L https://iterm2.com/shell_integration/zsh -o $HOME/.iterm2_shell_integration.zsh
-
-  # oh-my-zsh (keep existing .zshrc file)
-  sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended --keep-zshrc
-
-  # Zsh plugins (plugins section in .zshrc)
-  git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-$HOME/custom}/plugins/zsh-autosuggestions
-  git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-$HOME/custom}/plugins/zsh-syntax-highlighting
-  git clone https://github.com/lukechilds/zsh-nvm ${ZSH_CUSTOM:-$HOME/custom}/plugins/zsh-nvm
-else
-  # update & upgrade existing
-  brew update
-  brew upgrade
 fi
 
 BREW_PREFIX=$(brew --prefix)
+
+# update & upgrade existing
+brew update
+brew upgrade
+
+# App taps & update
+brew tap homebrew/cask
+brew tap homebrew/cask-versions
+brew tap homebrew/cask-fonts
+brew tap homebrew/bundle
+
+brew tap teamookla/speedtest
+
+# git and wget if not installed yet
+brew install wget git
+
+# iterm2 & its shell integration (sourced in .zshrc)
+brew install iterm2
+curl -L https://iterm2.com/shell_integration/zsh -o $HOME/.iterm2_shell_integration.zsh
+
+
+################################
+# Oh-My-Zsh & plugins
+
+# oh-my-zsh (keep existing .zshrc file)
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended --keep-zshrc
+
+# Zsh plugins (plugins section in .zshrc)
+git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-$HOME/custom}/plugins/zsh-autosuggestions
+git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-$HOME/custom}/plugins/zsh-syntax-highlighting
+git clone https://github.com/lukechilds/zsh-nvm ${ZSH_CUSTOM:-$HOME/custom}/plugins/zsh-nvm
+
+
+################################
+# General
 
 # coreutils
 brew install coreutils
@@ -102,14 +106,15 @@ brew install virtualbox virtualbox-extension-pack
 brew install bitwarden forklift spectacle suspicious-package the-unarchiver onyx appcleaner
 brew install syntax-highlight
 
-# Fonts
-brew install font-jetbrains-mono-nerd-font # VSCode
-brew install font-meslo-lg-nerd-font # iTerm2
+# Fonts - change for your liking
+brew install font-jetbrains-mono-nerd-font # personal preference for VSCode
 #brew install font-fira-code-nerd-font
 #brew install font-hack-nerd-font
+brew install font-meslo-lg-nerd-font # used by iTerm2
 
 # Screensavers
 brew install aerial brooklyn developerexcuses
+
 
 ################################
 # From local Brewfile
@@ -117,8 +122,9 @@ if [ -f Brewfile ]; then
   brew bundle install --verbose
 fi
 
+
 ################################
-# App Store apps. Commenting out the package will not try to install Apps either
+# App Store apps. Commenting out the 'mas' will not install Apps either
 brew install mas
 
 if brew ls --versions mas > /dev/null; then
@@ -130,4 +136,9 @@ fi
 
 ################################
 # Final check for any issues and cleanup
+
+# set brew external packages autocompletion
+chmod -R go-w "${BREW_PREFIX}/share" # make sure no “zsh compinit: insecure directories” errors
+rm -f ~/.zcompdump; compinit # force rebuild
+
 brew cleanup & brew doctor
