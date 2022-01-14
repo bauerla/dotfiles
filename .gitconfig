@@ -16,8 +16,8 @@
 [log]
   reverse = false
 [alias]
-	gprbm = pull --rebase origin master
-	gpullstash = !git fetch --all && git stash && git merge @{upstream} && git stash pop
+  gprbm = pull --rebase origin master
+  gpullstash = !git fetch --all && git stash && git merge @{upstream} && git stash pop
   unstage = reset HEAD --
   last = log -1 HEAD
   branchdate = !git for-each-ref --sort='authordate' --format='%(authordate:iso8601)%09%(objectname:short)%09%(refname)' refs/heads | sed -e 's-refs/heads/--'
