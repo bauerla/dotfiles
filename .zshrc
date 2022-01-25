@@ -153,4 +153,4 @@ eval $(thefuck --alias F)
 
 # zsh-syntax-highlight has to be sourced last
 source $ZSH_CUSTOM/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-source /usr/local/opt/powerlevel10k/powerlevel10k.zsh-theme
+source /usr/local/opt/powerlevel10k/powerlevel10k.zsh-theme # CHANGE TO USE Oh My Zsh plugin
