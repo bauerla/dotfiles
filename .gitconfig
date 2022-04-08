@@ -1,7 +1,7 @@
-[includeIf "gitdir:~/git/"]
-  path = ~/git/.gitconfig
-[includeIf "gitdir:~/github/"]
-  path = ~/github/.gitconfig
+[includeIf "gitdir:~/projects/work/"]
+  path = ~/projects/work/.gitconfig
+[includeIf "gitdir:~/projects/github/"]
+  path = ~/projects/github/.gitconfig
 [credential]
   helper = osxkeychain
 [core]
