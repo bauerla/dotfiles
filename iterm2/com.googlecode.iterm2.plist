@@ -47691,6 +47691,21 @@
 			<string></string>
 		</dict>
 	</dict>
+	<key>GlobalTouchBarMap</key>
+	<dict>
+		<key>touchbar:4C863FEA-CD7A-4764-8A98-197E926BF0C8</key>
+		<dict>
+			<key>Action</key>
+			<integer>25</integer>
+			<key>Label</key>
+			<string>PW Mgmt</string>
+			<key>Text</key>
+			<string>Password Manager
+Password Manager</string>
+			<key>Version</key>
+			<integer>1</integer>
+		</dict>
+	</dict>
 	<key>HapticFeedbackForEsc</key>
 	<false/>
 	<key>HideFromDockAndAppSwitcher</key>
@@ -47698,7 +47713,7 @@
 	<key>HideMenuBarInFullscreen</key>
 	<false/>
 	<key>HideScrollbar</key>
-	<false/>
+	<true/>
 	<key>HideTabCloseButton</key>
 	<true/>
 	<key>HideTabNumber</key>
@@ -48004,7 +48019,7 @@
 			<key>HotKey Modifier Flags</key>
 			<integer>0</integer>
 			<key>HotKey Window Animates</key>
-			<true/>
+			<false/>
 			<key>HotKey Window AutoHides</key>
 			<false/>
 			<key>HotKey Window Dock Click Action</key>
@@ -48350,6 +48365,8 @@
 			<string>MesloLGSNerdFontCompleteM-Regular 14</string>
 			<key>Only The Default BG Color Uses Transparency</key>
 			<true/>
+			<key>Open Password Manager Automatically</key>
+			<false/>
 			<key>Option Key Sends</key>
 			<integer>0</integer>
 			<key>Prompt Before Closing 2</key>
@@ -48863,6 +48880,8 @@
 	<true/>
 	<key>PromptOnQuit</key>
 	<false/>
+	<key>RequireAuthenticationAfterScreenLocks</key>
+	<true/>
 	<key>SensitiveScrollWheel</key>
 	<true/>
 	<key>ShowBookmarkName</key>
@@ -48883,6 +48902,8 @@
 	<true/>
 	<key>ThreeFingerEmulates</key>
 	<true/>
+	<key>UIElementRequiresHotkeys</key>
+	<false/>
 	<key>UseBorder</key>
 	<false/>
 	<key>VisualIndicatorForEsc</key>

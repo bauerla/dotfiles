@@ -3,8 +3,11 @@ alias zshconfig="mate ~/.zshrc"
 alias ohmyzsh="mate ~/.oh-my-zsh"
 
 # dotenv
-alias dotfiles='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
+alias dotfiles="/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME"
 
 # shell
-alias ls='ls -GFph'
+alias ls="ls -GFph"
 alias copy="tr -d '\n' | pbcopy"
+
+# start simulator
+alias start-simulator="open /Applications/Xcode.app/Contents/Developer/Applications/Simulator.app"
