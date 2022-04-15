@@ -1,11 +1,27 @@
 #!/bin/zsh
 
-# Change Os X default values
+# This script automates tweaking many of the Os X system settings.
+# All changes are for my personal preference so feel free to adjust any to your liking before running the script.
 #
-# −g | −globalDomain | NSGlobalDomain
+# Settings changed by the script are grouped by their context and/or app in question with a comment.
+# Not every setting is explained as most of them are self explanatory so have added comment to only where needed IMO.  
+#
+#
+# Parameters
+#   --hostname <name> : change computer name including network names
+#   --skip-hardening : when provided some hardening settings are skipped (see below in the script)
+#
+# Notes
+#   '−g' used system settings is equivalent to '−globalDomain' and 'NSGlobalDomain'
+#
+
+zmodload zsh/zutil
+# Parse passed arguments
+zparseopts -D -E -F -hostname:=n -skip-hardening=h || exit 1
 
 # hostname from as first argument or env variable
-COMPUTER_NAME=${1:-$COMPUTER_NAME} 
+#COMPUTER_NAME=${$COMPUTER_NAME:-""}
+#HARDENING=${$HARDENING:-true}
 
 # close any system preference windows first
 osascript -e 'tell application "System Preferences" to quit'
@@ -18,42 +34,56 @@ while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 
 
 ####################################
-# System
+# Security (Hardening)
 
-# Set computer name (System Preferences -> Sharing) - variable in .env file
-# set hostname
-if [[ "$COMPUTER_NAME" != "" ]]; then
-  sudo scutil --set ComputerName "${COMPUTER_NAME}"
-  sudo scutil --set HostName "${COMPUTER_NAME}"
-  sudo scutil --set LocalHostName "${COMPUTER_NAME}"
-  sudo defaults write /Library/Preferences/SystemConfiguration/com.apple.smb.server NetBIOSName -string "${COMPUTER_NAME}"
-else
-  print -P "%F{yellow}To set Computer name provide it as the first argument or define 'COMPUTER_NAME' env variable%f\n"
+# Skip hardenings settings if --skip-hardening provided
+if [[ -z $h ]]; then
+  # Enable Firewall
+  echo -e "\nEnabling FireWall..."
+  sudo /usr/libexec/ApplicationFirewall/socketfilterfw --setglobalstate on
+
+  # Enable FileVault
+  echo -e "\nEnabling FileVault..."
+  test $(fdesetup isactive) || echo -e "\nEnabling FileVault..." && sudo fdesetup enable
+  sudo fdesetup status
+
+  # Other hardening
+  sudo defaults write /Library/Preferences/.GlobalPreferences MultipleSessionEnabled -bool false # disable fast user switch
+  sudo pmset destroyfvkeyonstandby 1 # remove FileVault keys in memory when standby mode
 fi
 
-print -P "%F{green}Network names are:%f"
-echo "\tComputerName:\t $(sudo scutil --get ComputerName)"
-echo "\tHostName:\t $(sudo scutil --get HostName)"
-echo "\tLocalHostName:\t $(sudo scutil --get LocalHostName)"
-echo "\tNetBIOSName:\t $(sudo defaults read /Library/Preferences/SystemConfiguration/com.apple.smb.server NetBIOSName)\n"
+####################################
+# Hostname
 
-# Disable the sound effects on boot
-sudo nvram SystemAudioVolume=" "
+# - 'ComputerName', 'HostName' & 'LocalHostName' (System Preferences -> Sharing)
+# - 'NetBIOSName' (System Preferences -> Networks -> Advanced...)
 
-# Enable Firewall
-echo -e "\nEnabling FireWall..."
-sudo /usr/libexec/ApplicationFirewall/socketfilterfw --setglobalstate on
+if [[ -n $n[2] ]]; then
+  sudo scutil --set ComputerName $n[2]
+  sudo scutil --set HostName $n[2]
+  sudo scutil --set LocalHostName $n[2]
+  sudo defaults write /Library/Preferences/SystemConfiguration/com.apple.smb.server NetBIOSName -string $n[2]
+  
+  # Flush DNS cache
+  dscacheutil -flushcache
+  
+  # Print out the names after changed
+  print -P "%F{green}Network names set:%f"
+  echo "\tComputerName:\t $(sudo scutil --get ComputerName)"
+  echo "\tHostName:\t $(sudo scutil --get HostName)"
+  echo "\tLocalHostName:\t $(sudo scutil --get LocalHostName)"
+  echo "\tNetBIOSName:\t $(sudo defaults read /Library/Preferences/SystemConfiguration/com.apple.smb.server NetBIOSName)\n"
+  print -P "%F{red}--> Remember to restart computer after the script%f"
+fi
 
-# Enable FileVault
-test $(fdesetup isactive) || echo -e "\nEnabling FileVault..." && sudo fdesetup enable
-sudo fdesetup status
 
-# Other security hardening
-defaults write /Library/Preferences/.GlobalPreferences MultipleSessionEnabled -bool false # disable fast user switch
-sudo pmset destroyfvkeyonstandby 1 # remove FileVault keys in memory when standby mode
+####################################
+# Media
 
 # Increase Bluetooth audio quality
 defaults write com.apple.BluetoothAudioAgent "Apple Bitpool Min (editable)" -int 40
+# Disable the sound effects on boot
+sudo nvram SystemAudioVolume=" "
 
 
 ####################################
@@ -117,6 +147,9 @@ defaults -currentHost write -g AppleFontSmoothing -int 0
 ####################################
 # Dock & Menu bar 
 
+# Spaces automatic reordering
+defaults write com.apple.dock mru-spaces -bool false
+
 # Menu
 defaults write com.apple.menuextra.battery ShowPercent -string "YES"
 defaults write com.apple.menuextra.battery ShowTime -bool false
@@ -137,13 +170,13 @@ defaults write -g NSWindowResizeTime -float 0.001
 defaults write -g NSDisableAutomaticTermination -bool true
 
 # Clock
-## Thu 18 Aug 23:46
+## Thu 18 Aug 23:46:10
 ## System Preferences > Date & Time > Display time with seconds - Checked [:ss]
 ## System Preferences > Date & Time > Use a 24-hour clock - Checked [HH:mm]
 ## System Preferences > Date & Time > Show AM/PM - Unchecked
 ## System Preferences > Date & Time > Show the day of the week - Checked [EEE]
 ## System Preferences > Date & Time > Show date - Checked [d MMM]
-sudo defaults write com.apple.menuextra.clock DateFormat -string "EEE d MMM HH:mm"
+sudo defaults write com.apple.menuextra.clock DateFormat -string "EEE d MMM HH:mm:ss"
 
 
 ####################################
@@ -268,5 +301,10 @@ defaults write com.microsoft.VSCode.helper.NP CGFontRenderingFontSmoothingDisabl
 # Restart all affected apps
 for app in Safari Finder Dock SystemUIServer; do killall "$app" >/dev/null 2>&1; done
 
-echo "iTerm2 will terminate now to apply changes..."
-osascript -e 'tell application "iTerm" to quit'
+osascript <<'END'
+if application "iTerm" is running then
+  log "iTerm2 will terminate now to apply changes..."
+  tell application "iTerm" to quit
+  return
+end if
+END
