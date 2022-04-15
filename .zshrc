@@ -1,97 +1,48 @@
-# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
-# Initialization code that may require console input (password prompts, [y/n]
-# confirmations, etc.) must go above this block; everything else may go below.
+# Enable Powerlevel10k instant prompt
 if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
-# If you come from bash you might have to change your $PATH.
-# export PATH=$HOME/bin:/usr/local/bin:$PATH
-
-# Path to your oh-my-zsh installation.
+# Oh My Zsh settings
 export ZSH=$HOME/.oh-my-zsh
+export ZSH_CUSTOM=$HOME/.oh-my-zsh-custom # according to dotfiles
+ZSH_THEME="powerlevel10k/powerlevel10k"
 
-# Set name of the theme to load --- if set to "random", it will
-# load a random theme each time oh-my-zsh is loaded, in which case,
-# to know which specific one was loaded, run: echo $RANDOM_THEME
-# See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
-# ZSH_THEME="robbyrussell"
+zstyle ':omz:update' mode disabled # disable automatic updates
 
-# Set list of themes to pick from when loading at random
-# Setting this variable when ZSH_THEME=random will cause zsh to load
-# a theme from this variable instead of looking in $ZSH/themes/
-# If set to an empty array, this variable will have no effect.
-# ZSH_THEME_RANDOM_CANDIDATES=( "robbyrussell" "agnoster" )
+HIST_STAMPS="dd.mm.yyyy"
+DISABLE_UNTRACKED_FILES_DIRTY="true" # speed up repository status check on large repositories 
+DISABLE_MAGIC_FUNCTIONS=true # do not touch URLs and text on paste
 
-# Uncomment the following line to use case-sensitive completion.
-# CASE_SENSITIVE="true"
-
-# Uncomment the following line to use hyphen-insensitive completion.
-# Case-sensitive completion must be off. _ and - will be interchangeable.
-# HYPHEN_INSENSITIVE="true"
-
-# Uncomment the following line to disable bi-weekly auto-update checks.
-# DISABLE_AUTO_UPDATE="true"
-
-# Uncomment the following line to automatically update without prompting.
-DISABLE_UPDATE_PROMPT="false"
-
-# Uncomment the following line to change how often to auto-update (in days).
-# export UPDATE_ZSH_DAYS=7
-
-# Uncomment the following line if pasting URLs and other text is messed up.
-# DISABLE_MAGIC_FUNCTIONS="true"
-
-# Uncomment the following line to disable colors in ls.
-# DISABLE_LS_COLORS="true"
-
-# Uncomment the following line to disable auto-setting terminal title.
-# DISABLE_AUTO_TITLE="true"
-
-# Uncomment the following line to enable command auto-correction.
-# ENABLE_CORRECTION="true"
-
-# Uncomment the following line to display red dots whilst waiting for completion.
-COMPLETION_WAITING_DOTS="true"
-
-# Uncomment the following line if you want to disable marking untracked files
-# under VCS as dirty. This makes repository status check for large repositories
-# much, much faster.
-DISABLE_UNTRACKED_FILES_DIRTY="true"
-
-# Uncomment the following line if you want to change the command execution time
-# stamp shown in the history command output.
-# You can set one of the optional three formats:
-# "mm/dd/yyyy"|"dd.mm.yyyy"|"yyyy-mm-dd"
-# or set a custom format using the strftime function format specifications,
-# see 'man strftime' for details.
-# HIST_STAMPS="mm/dd/yyyy"
-
-# ZSH custom folder according to Dotfiles
-ZSH_CUSTOM=$HOME/.oh-my-zsh-custom
-
-# zsh-nvm - settings has to be before plugin init
-export NVM_AUTO_USE=true # Enable when .nvmrc in folder
+# zsh-nvm - has to be before omz plugins init
+export NVM_AUTO_USE=true # enable when .nvmrc found in folder
 export NVM_COMPLETION=true
 export NVM_COLORS="bcgmW"
 export NVM_DIR="$HOME/.nvm"
 
-# Which plugins would you like to load?
-# Standard plugins can be found in $ZSH/plugins/
-# Custom plugins may be added to $ZSH_CUSTOM/plugins/
-# Example format: plugins=(rails git textmate ruby lighthouse)
-# Add wisely, as too many plugins slow down shell startup.
+# Oh My Zsh plugins
 plugins+=(git dotenv yarn zsh-nvm macos zsh-autosuggestions zsh-syntax-highlighting)
-
 source $ZSH/oh-my-zsh.sh
 
-# User configuration
+### User customizations after this ###
 
-# export MANPATH="/usr/local/man:$MANPATH"
-export PATH="/usr/local/sbin:$PATH"
+# GNU tools - Uncomment if prefer using without g prefix (replaces BSD tools)
+export PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"
+export PATH="/usr/local/opt/gnu-sed/libexec/gnubin:$PATH"
+export PATH="/usr/local/opt/gnu-tar/libexec/gnubin:$PATH"
+export PATH="/usr/local/opt/gnu-indent/libexec/gnubin:$PATH"
+export PATH="/usr/local/opt/gnu-which/libexec/gnubin:$PATH"
 
-# You may need to manually set your language environment
+# /usr/local/sbin
+#export PATH="/usr/local/sbin:$PATH"
+# Man
+export MANPATH="/usr/local/man:$MANPATH"
+# curl
+export PATH="/usr/local/opt/curl/bin:$PATH"
+# Lang
 export LANG=en_US.UTF-8
+# JDK
+export PATH="/usr/local/opt/openjdk/bin:$PATH"
 
 # Preferred editor for local and remote sessions
 if [[ -n $SSH_CONNECTION ]]; then
@@ -100,57 +51,12 @@ else
   export EDITOR="code -w"
 fi
 
-setopt NO_CASE_GLOB
-setopt AUTO_CD
+#setopt NO_CASE_GLOB
+#setopt AUTO_CD
 
 # History
-HISTFILE=${ZDOTDIR:-$HOME}/.zsh_history
 HISTSIZE=100000
 SAVEHIST=100000
-setopt INC_APPEND_HISTORY         # append to history
-setopt EXTENDED_HISTORY           # additional history info
-setopt INC_APPEND_HISTORY         # adds commands as they are typed, not at shell exit
-setopt HIST_EXPIRE_DUPS_FIRST     # expire duplicates first
-setopt HIST_IGNORE_DUPS           # do not store duplicates
-#setopt HIST_FIND_NO_DUPS         # ignore duplicates when searching (disable if above set)
-setopt HIST_IGNORE_SPACE          # ignore commands that start with space
-setopt HIST_REDUCE_BLANKS         # removes blank lines from history
-setopt HIST_VERIFY                # show substituted command for editing
-setopt SHARE_HISTORY              # share history across multiple zsh sessions
-export HISTTIMEFORMAT="[%F %T] "  # history time format
-
-# Iterm shell integration
-if [[ "$TERM_PROGRAM" != "iTerm.app" ]]; then
-  source ~/.iterm2_shell_integration.zsh
-fi
-
-# pyenv
-export PYENV_ROOT="$HOME/.pyenv"
-export PATH="$PYENV_ROOT/bin:$PATH"
-if command -v pyenv 1>/dev/null 2>&1; then
-  eval "$(pyenv init -)"
-fi
-
-# gnu
-export PATH="/usr/local/opt/gnu-sed/libexec/gnubin:$PATH"
-
-# Android Studio
-export ANDROID_HOME=$HOME/Library/Android/sdk
-export PATH=$PATH:$ANDROID_HOME/emulator
-export PATH=$PATH:$ANDROID_HOME/tools
-export PATH=$PATH:$ANDROID_HOME/tools/bin
-export PATH=$PATH:$ANDROID_HOME/platform-tools
-
-# flutter
-export PATH="$PATH:`pwd`/flutter/bin"
-
-# thefuck
-eval $(thefuck --alias)
-eval $(thefuck --alias F)
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
-
-# zsh-syntax-highlight has to be sourced last
-source $ZSH_CUSTOM/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-source /usr/local/opt/powerlevel10k/powerlevel10k.zsh-theme # CHANGE TO USE Oh My Zsh plugin
