@@ -1,5 +1,6 @@
 #!/bin/zsh
 
+####################################
 # This script automates tweaking many of the Os X system settings.
 # All changes are for my personal preference so feel free to adjust any to your liking before running the script.
 #
@@ -14,6 +15,7 @@
 # Notes
 #   '−g' used system settings is equivalent to '−globalDomain' and 'NSGlobalDomain'
 #
+####################################
 
 zmodload zsh/zutil
 # Parse passed arguments
@@ -50,6 +52,8 @@ if [[ -z $h ]]; then
   # Other hardening
   sudo defaults write /Library/Preferences/.GlobalPreferences MultipleSessionEnabled -bool false # disable fast user switch
   sudo pmset destroyfvkeyonstandby 1 # remove FileVault keys in memory when standby mode
+else
+  echo "Skipping hardening settings..."
 fi
 
 ####################################
@@ -68,12 +72,12 @@ if [[ -n $n[2] ]]; then
   dscacheutil -flushcache
   
   # Print out the names after changed
-  print -P "%F{green}Network names set:%f"
-  echo "\tComputerName:\t $(sudo scutil --get ComputerName)"
-  echo "\tHostName:\t $(sudo scutil --get HostName)"
-  echo "\tLocalHostName:\t $(sudo scutil --get LocalHostName)"
-  echo "\tNetBIOSName:\t $(sudo defaults read /Library/Preferences/SystemConfiguration/com.apple.smb.server NetBIOSName)\n"
-  print -P "%F{red}--> Remember to restart computer after the script%f"
+  print -P "%F{cyan}Network names set:%f"
+  print -P "\tComputerName:\t%B$(sudo scutil --get ComputerName)%b"
+  print -P "\tHostName:\t%B$(sudo scutil --get HostName)%b"
+  print -P "\tLocalHostName:\t%b$(sudo scutil --get LocalHostName)%b"
+  print -P "\tNetBIOSName:\t%B$(sudo defaults read /Library/Preferences/SystemConfiguration/com.apple.smb.server NetBIOSName)\n%b"
+  print -P "%F{red}--> Remember to restart computer after the script%f\n"
 fi
 
 
@@ -297,14 +301,18 @@ defaults write com.microsoft.VSCode.helper CGFontRenderingFontSmoothingDisabled 
 defaults write com.microsoft.VSCode.helper.EH CGFontRenderingFontSmoothingDisabled -bool false
 defaults write com.microsoft.VSCode.helper.NP CGFontRenderingFontSmoothingDisabled -bool false
 
+
 ####################################
 # Restart all affected apps
+echo "Closing all system apps affected by the changes (Safari Finder Dock SystemUIServer)..."
 for app in Safari Finder Dock SystemUIServer; do killall "$app" >/dev/null 2>&1; done
 
 osascript <<'END'
 if application "iTerm" is running then
-  log "iTerm2 will terminate now to apply changes..."
+  log "Closing iTerm2 to apply changes..."
   tell application "iTerm" to quit
   return
 end if
 END
+
+print -P "%F{green}System setup script complete!%f"
