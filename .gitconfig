@@ -21,7 +21,7 @@
   unstage = reset HEAD --
   last = log -1 HEAD
   branchdate = !git for-each-ref --sort='authordate' --format='%(authordate:iso8601)%09%(objectname:short)%09%(refname)' refs/heads | sed -e 's-refs/heads/--'
-  update-from = "!f() { git fetch $1 --prune; git merge --ff-only $1/$2 || git rebase --preserve-merges $1/$2; }; f"
+  update-from = "!f() { git fetch $1 --prune; git merge --ff-only $1/$2 || git rebase --rebase-merges $1/$2; }; f"
   local-branches = !git branch -vv | cut -c 3- | awk '$3 !~/\\[/ { print $1 }'
   stash-staged = "!bash -c \"git stash --keep-index; git stash push -m \"staged `date +%Y-%m-%d-%H:%M`\" --keep-index; git stash pop stash@{1}\""
 [push]
