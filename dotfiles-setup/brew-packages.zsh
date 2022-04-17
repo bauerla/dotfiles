@@ -36,7 +36,7 @@ brew install iterm2
 ################################
 # From local Brewfile
 if [ -f $HOME/Brewfile ]; then
-  echo "--------------- Local Brewfile found. Installing... -----------------"
+  print -P "\n%F{cyan}Local Brewfile found. Installing...%f"
   brew bundle install --verbose
 fi
 
