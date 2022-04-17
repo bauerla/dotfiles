@@ -13,6 +13,7 @@ brew "docker-compose" # https://docs.docker.com/compose/
 brew "pyenv" # https://github.com/pyenv/pyenv
 brew "yarn" # https://yarnpkg.com/
 brew "mongodb/brew/mongodb-community@4.4"
+brew "visual-studio-code" # https://code.visualstudio.com/
 
 # Media & documents
 brew "ffmpeg" # https://ffmpeg.org/
@@ -45,6 +46,7 @@ cask "developerexcuses" # https://github.com/kimar/DeveloperExcuses
 # Fonts - https://github.com/Homebrew/homebrew-cask-fonts
 cask "font-fira-code-nerd-font"
 cask "font-hack-nerd-font"
+cask "font-jetbrains-mono-nerd-font" # my preference for Visual Studio Code
 
 # Apps
 cask "appcleaner" # https://freemacsoft.net/appcleaner/
