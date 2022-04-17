@@ -7,17 +7,18 @@ brew "brew-cask-completion" # https://github.com/xyb/homebrew-cask-completion
 
 # Development
 brew "openjdk" # https://openjdk.java.net/
-brew "android-studio"  # https://developer.android.com/studio/
 brew "docker" # https://www.docker.com/
 brew "docker-compose" # https://docs.docker.com/compose/
 brew "pyenv" # https://github.com/pyenv/pyenv
 brew "yarn" # https://yarnpkg.com/
 brew "mongodb/brew/mongodb-community@4.4"
-brew "visual-studio-code" # https://code.visualstudio.com/
+cask "android-studio"  # https://developer.android.com/studio/
+cask "visual-studio-code" # https://code.visualstudio.com/
 
 # Media & documents
 brew "ffmpeg" # https://ffmpeg.org/
 brew "imagemagick" # https://imagemagick.org/
+brew "ghostscript" # ImageMagick depends on Ghostscript fonts - https://imagemagick.org/script/download.php
 brew "p7zip" # https://github.com/jinfeihan57/p7zip
 brew "pandoc" # https://pandoc.org/
 brew "rsync" # https://rsync.samba.org/
@@ -61,7 +62,6 @@ brew "mas"  # https://github.com/mas-cli/mas
 # Virtualization
 #cask "virtualbox"  # https://www.virtualbox.org/
 #cask "virtualbox-extension-pack" # https://www.virtualbox.org/
-
 
 # App Store apps (via mas)
 mas "Bitwarden", id: 1352778147
