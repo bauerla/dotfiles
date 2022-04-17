@@ -33,8 +33,8 @@ export PATH="/usr/local/opt/gnu-tar/libexec/gnubin:$PATH"
 export PATH="/usr/local/opt/gnu-indent/libexec/gnubin:$PATH"
 export PATH="/usr/local/opt/gnu-which/libexec/gnubin:$PATH"
 
-# /usr/local/sbin
-#export PATH="/usr/local/sbin:$PATH"
+# Homebrew's "sbin"
+export PATH="/usr/local/sbin:$PATH"
 # Man
 export MANPATH="/usr/local/man:$MANPATH"
 # curl
