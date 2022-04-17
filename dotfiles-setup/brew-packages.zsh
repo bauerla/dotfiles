@@ -1,6 +1,7 @@
 #!/bin/zsh
 
-export HOMEBREW_NO_INSTALL_CLEANUP=1 # Manually cleaup after install process
+export HOMEBREW_NO_INSTALL_CLEANUP=1 # manually cleaup after install process
+export HOMEBREW_CASK_OPTS="--appdir=~/Applications" # install to user App dir (also in .zprofile)
 
 ################################
 # Taps
