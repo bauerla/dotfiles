@@ -16,7 +16,7 @@ if [[ $(command -v brew) == "" ]]; then
   print -P "%F{yellow}Important: Remember to close and reopen the terminal to be able to `brew`!%f"
 else
   print -P "%F{green}Yay! You have Homebrew installed already!%F{cyan}\nRunning update and upgrade... %f"
-  # Do update and upgrade
+  # do update and upgrade
   brew update && brew upgrade
 fi
 
