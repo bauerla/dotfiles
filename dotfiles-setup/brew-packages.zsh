@@ -1,10 +1,18 @@
 #!/bin/zsh
 
+# Use user's Brewfile if found in home directory 
+brewfile_path=~/dotfiles-setup/Brewfile
+[[ -f "$HOME/Brewfile" ]] && brewfile_path=~/Brewfile
+
+export HOMEBREW_BUNDLE_FILE=$brewfile_path # Brewfile location
 export HOMEBREW_NO_INSTALL_CLEANUP=1 # manually cleaup after install process
 export HOMEBREW_CASK_OPTS="--appdir=~/Applications" # install to user App dir (also in .zprofile)
 
+
 ################################
 # Taps
+print -P "\n%F{cyan}Adding common Taps and upgrading...%f"
+
 brew tap homebrew/bundle
 brew tap homebrew/cask
 brew tap homebrew/cask-versions
@@ -17,8 +25,9 @@ brew update --quiet & brew upgrade
 
 ################################
 # Common core tools
-brew install git wget curl
+print -P "\n%F{cyan}Installing common tools (+ Iterm2)...%f"
 
+brew install git wget curl
 
 # GNU utilities
 brew install coreutils
@@ -35,12 +44,15 @@ brew install iterm2
 
 ################################
 # From local Brewfile
-if [ -f $HOME/Brewfile ]; then
-  print -P "\n%F{cyan}Local Brewfile found. Installing...%f"
+if [ -f $HOMEBREW_BUNDLE_FILE ]; then
+  print -P "\n%F{cyan}Installing from Brewfile located in '$brewfile_path' ...%f"
   brew bundle install --verbose
 fi
 
 
 ################################
 # Post cleanup and validation
+print -P "\n%F{cyan}Doing housekeeping...%f"
 brew cleanup & brew doctor
+
+print -P "\n%F{green}Done!%f"
