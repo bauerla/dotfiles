@@ -41,11 +41,11 @@ while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 # Skip hardenings settings if --skip-hardening provided
 if [[ -z $h ]]; then
   # Enable Firewall
-  echo -e "\nEnabling FireWall..."
+  print -P "%F{blue}Enabling FireWall...%f"
   sudo /usr/libexec/ApplicationFirewall/socketfilterfw --setglobalstate on
 
   # Enable FileVault
-  echo -e "\nEnabling FileVault..."
+  print -P "%F{blue}Enabling FileVault...%f"
   test $(fdesetup isactive) || echo -e "\nEnabling FileVault..." && sudo fdesetup enable
   sudo fdesetup status
 
@@ -53,7 +53,7 @@ if [[ -z $h ]]; then
   sudo defaults write /Library/Preferences/.GlobalPreferences MultipleSessionEnabled -bool false # disable fast user switch
   sudo pmset destroyfvkeyonstandby 1 # remove FileVault keys in memory when standby mode
 else
-  echo "Skipping hardening settings..."
+  print -P "%F{blue}Skipping hardening settings..."
 fi
 
 ####################################
@@ -72,7 +72,7 @@ if [[ -n $n[2] ]]; then
   dscacheutil -flushcache
   
   # Print out the names after changed
-  print -P "%F{cyan}Network names set:%f"
+  print -P "%F{blue}Network names set:%f"
   print -P "\tComputerName:\t%B$(sudo scutil --get ComputerName)%b"
   print -P "\tHostName:\t%B$(sudo scutil --get HostName)%b"
   print -P "\tLocalHostName:\t%b$(sudo scutil --get LocalHostName)%b"
@@ -315,4 +315,4 @@ if application "iTerm" is running then
 end if
 END
 
-print -P "%F{green}System setup script complete!%f"
+print -P "%F{green}Done!%f"

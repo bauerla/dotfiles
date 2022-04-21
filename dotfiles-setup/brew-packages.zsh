@@ -55,4 +55,4 @@ fi
 print -P "\n%F{cyan}Doing housekeeping...%f"
 brew cleanup & brew doctor
 
-print -P "\n%F{green}Done!%f"
+print -P "\n%F{cyan}Done!%f"
