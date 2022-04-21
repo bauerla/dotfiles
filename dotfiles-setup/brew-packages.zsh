@@ -44,7 +44,7 @@ brew install iterm2
 
 ################################
 # From local Brewfile
-if [ -f $HOMEBREW_BUNDLE_FILE ]; then
+if [[ -f "$HOMEBREW_BUNDLE_FILE" ]]; then
   print -P "\n%F{cyan}Installing from Brewfile located in '$brewfile_path' ...%f"
   brew bundle install --verbose
 fi
