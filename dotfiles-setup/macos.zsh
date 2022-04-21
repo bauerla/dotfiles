@@ -180,7 +180,7 @@ defaults write -g NSDisableAutomaticTermination -bool true
 ## System Preferences > Date & Time > Show AM/PM - Unchecked
 ## System Preferences > Date & Time > Show the day of the week - Checked [EEE]
 ## System Preferences > Date & Time > Show date - Checked [d MMM]
-sudo defaults write com.apple.menuextra.clock DateFormat -string "EEE d MMM HH:mm:ss"
+sudo defaults write com.apple.menuextra.clock DateFormat -string "\"EEE d MMM HH:mm:ss\""
 
 
 ####################################
