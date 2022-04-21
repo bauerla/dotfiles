@@ -6,12 +6,14 @@ if [[ $(command -v brew) == "" ]]; then
 
   # if Apple M1 add brew to PATH according to Homebrew and eval
   if [[ `uname -m` == 'arm64' ]]; then
+    echo '\n#Homebrew location' >> /Users/$(whoami)/.zprofile
     echo 'eval $(/opt/homebrew/bin/brew shellenv)' >> /Users/$(whoami)/.zprofile
-    eval $(/opt/homebrew/bin/brew shellenv)
   fi
 
   # disable analytics
   brew analytics off # disable analytics
+  
+  print -P "%F{yellow}Important: Remember to close and reopen the terminal to be able to `brew`!%f"
 else
   print -P "%F{green}Yay! You have Homebrew installed already!%F{cyan}\nRunning update and upgrade... %f"
   # Do update and upgrade
