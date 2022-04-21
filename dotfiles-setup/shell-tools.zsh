@@ -32,3 +32,5 @@ https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Bold%2
 print -P "%F{magenta}Getting Powerlevel10k fonts...%f"
 wget --no-verbose --show-progress --directory-prefix=$HOME/Library/Fonts/ -i - <<< $fonts
 
+print -P "%F{magenta}Done!%f"
+
