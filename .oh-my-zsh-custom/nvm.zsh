@@ -4,5 +4,4 @@ nvm-install() {
 	else
   		nvm install $1 --reinstall-packages-from=node --latest-npm
 	fi
-	
 }

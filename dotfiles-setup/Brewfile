@@ -14,6 +14,8 @@ brew "yarn" # https://yarnpkg.com/
 brew "mongodb/brew/mongodb-community@4.4"
 cask "android-studio"  # https://developer.android.com/studio/
 cask "visual-studio-code" # https://code.visualstudio.com/
+cask "google-cloud-sdk" # https://cloud.google.com/sdk/
+cask "postman" # https://www.postman.com/
 
 # Media & documents
 brew "ffmpeg" # https://ffmpeg.org/
@@ -21,6 +23,7 @@ brew "imagemagick" # https://imagemagick.org/
 brew "ghostscript" # ImageMagick depends on Ghostscript fonts - https://imagemagick.org/script/download.php
 brew "p7zip" # https://github.com/jinfeihan57/p7zip
 brew "pandoc" # https://pandoc.org/
+cask "basictex" # for Pandoc - https://www.tug.org/mactex/morepackages.html
 brew "rsync" # https://rsync.samba.org/
 #cask "vlc" # From another source for me atm - https://www.videolan.org/vlc/
 
@@ -38,6 +41,7 @@ brew "rename" # http://plasmasturm.org/code/rename
 brew "teamookla/speedtest/speedtest" # see top of the file
 brew "terminal-notifier" # https://github.com/julienXX/terminal-notifier
 brew "tree" # http://mama.indstate.edu/users/ice/tree/
+brew "hyperfine" # "https://github.com/sharkdp/hyperfine"
 
 # Screensavers
 cask "aerial" # https://github.com/JohnCoates/Aerial
@@ -55,6 +59,7 @@ cask "google-chrome"  # https://www.google.com/chrome/
 cask "firefox"  # https://www.mozilla.org/firefox/
 cask "spotify"  # https://www.spotify.com/
 cask "suspicious-package" # https://www.mothersruin.com/software/SuspiciousPackage/
+cask "skitch" # https://evernote.com/products/skitch
 
 # Other
 brew "mas"  # https://github.com/mas-cli/mas
@@ -62,6 +67,7 @@ brew "mas"  # https://github.com/mas-cli/mas
 # Virtualization
 #cask "virtualbox"  # https://www.virtualbox.org/
 #cask "virtualbox-extension-pack" # https://www.virtualbox.org/
+#cask "docker" # https://www.docker.com/products/docker-desktop
 
 # App Store apps (via mas)
 mas "Bitwarden", id: 1352778147
