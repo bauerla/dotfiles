@@ -3,7 +3,7 @@
 [includeIf "gitdir:~/projects/github/"]
   path = ~/projects/github/.gitconfig
 [credential]
-  helper = osxkeychain
+	helper = cache
 [core]
   autocrlf = input # Convert CRLF to LF on commit, line endings should be LF in the repository
   eol = lf # default: native. makes sure to have LF line endings on checkouts
@@ -11,6 +11,7 @@
   editor = code --wait
   pager = less -F -X
   ignorecase = false
+	excludesfile = ~/.gitignore
 [color]
   ui = auto
 [log]
@@ -35,3 +36,5 @@
   tool = vscode
 [difftool "vscode"]
   cmd = code --wait --diff $LOCAL $REMOTE
+[http]
+	sslVerify = false
