@@ -19,6 +19,9 @@ brew tap homebrew/cask-versions
 brew tap homebrew/cask-fonts
 #brew tap homebrew/services # installed automatically when first run
 
+# Cask completion
+brew install brew-cask-completion
+
 # Update
 brew update --quiet & brew upgrade
 
