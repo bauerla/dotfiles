@@ -17,6 +17,7 @@ DISABLE_MAGIC_FUNCTIONS=true # do not touch URLs and text on paste
 # zsh-nvm - has to be before omz plugins init
 export NVM_AUTO_USE=true # enable when .nvmrc found in folder
 export NVM_COMPLETION=true
+export NVM_LAZY_LOAD=true
 export NVM_COLORS="bcgmW"
 export NVM_DIR="$HOME/.nvm"
 
@@ -57,6 +58,13 @@ fi
 # History
 HISTSIZE=100000
 SAVEHIST=100000
+setopt BANG_HIST                 # Treat the '!' character specially during expansion.
+setopt INC_APPEND_HISTORY        # Write to the history file immediately, not when the shell exits.
+setopt SHARE_HISTORY             # Share history between all sessions.
+setopt HIST_EXPIRE_DUPS_FIRST    # Expire duplicate entries first when trimming history.
+setopt HIST_IGNORE_DUPS          # Don't record an entry that was just recorded again.
+setopt HIST_IGNORE_ALL_DUPS      # Delete old recorded entry if new entry is a duplicate.
+setopt HIST_FIND_NO_DUPS         # Do not display a line previously found.
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
