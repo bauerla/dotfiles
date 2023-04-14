@@ -9,5 +9,8 @@ alias dotfiles="/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME"
 alias ls="ls -GFph"
 alias copy="tr -d '\n' | pbcopy"
 
+# git
+alias ggup='git update-from origin $(git_current_branch)' # see 'update-from' in ~/.gitconfig
+
 # start iOS simulator
 alias start-simulator="open /Applications/Xcode.app/Contents/Developer/Applications/Simulator.app"
