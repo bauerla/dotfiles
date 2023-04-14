@@ -14,6 +14,9 @@ HIST_STAMPS="dd.mm.yyyy"
 DISABLE_UNTRACKED_FILES_DIRTY="true" # speed up repository status check on large repositories 
 DISABLE_MAGIC_FUNCTIONS=true # do not touch URLs and text on paste
 
+# Uncomment the following line to change how often to auto-update (in days).
+# export UPDATE_ZSH_DAYS=13
+
 # zsh-nvm - has to be before omz plugins init
 export NVM_AUTO_USE=true # enable when .nvmrc found in folder
 export NVM_COMPLETION=true
@@ -22,7 +25,7 @@ export NVM_COLORS="bcgmW"
 export NVM_DIR="$HOME/.nvm"
 
 # Oh My Zsh plugins
-plugins+=(git dotenv yarn zsh-nvm macos zsh-autosuggestions zsh-syntax-highlighting)
+plugins+=(git dotenv yarn zsh-nvm macos zsh-autosuggestions zsh-syntax-highlighting autoupdate)
 source $ZSH/oh-my-zsh.sh
 
 ### User customizations after this ###
