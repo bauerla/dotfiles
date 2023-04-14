@@ -8,33 +8,36 @@
   autocrlf = input # Convert CRLF to LF on commit, line endings should be LF in the repository
   eol = lf # default: native. makes sure to have LF line endings on checkouts
   fileMode = false # ignores filemode differences
-  editor = code --wait
+  editor = code --wait --new-window
   pager = less -F -X
   ignorecase = false
-	excludesfile = ~/.gitignore
+	excludesfile = ~/.gitignore_global
 [color]
   ui = auto
 [log]
   reverse = false
 [alias]
-  gprbm = pull --rebase origin master
+  gprbm = "!f() {git pull --rebase origin ${1-master}}"
   gpullstash = !git fetch --all && git stash && git merge @{upstream} && git stash pop
   unstage = reset HEAD --
   last = log -1 HEAD
   branchdate = !git for-each-ref --sort='authordate' --format='%(authordate:iso8601)%09%(objectname:short)%09%(refname)' refs/heads | sed -e 's-refs/heads/--'
   update-from = "!f() { git fetch $1 --prune; git merge --ff-only $1/$2 || git rebase --rebase-merges $1/$2; }; f"
   local-branches = !git branch -vv | cut -c 3- | awk '$3 !~/\\[/ { print $1 }'
-  stash-staged = "!bash -c \"git stash --keep-index; git stash push -m \"staged `date +%Y-%m-%d-%H:%M`\" --keep-index; git stash pop stash@{1}\""
+  bclean = "!f() { git branch --merged ${1-master} | grep -v " ${1-master}$" | xargs -r git branch -d; }; f"
+  new = !sh -c 'git log $1@{1}..$1@{0} "$@"'
+  sortdiff = !sh -c 'git diff "$@" | grep "^[+-]" | sort --key=1.2 | uniq -u -s1'
+  stash-staged = "!f() { git stash --keep-index; git stash push -m "staged `date +%Y-%m-%d-%H:%M`" --keep-index; git stash pop stash@{1} }; f"
 [push]
   followTags = false
 [merge]
   tool = vscode
   ff = only
-[mergetool "vscode"]
-  cmd = code --wait $MERGED
-[diff]
-  tool = vscode
 [difftool "vscode"]
-  cmd = code --wait --diff $LOCAL $REMOTE
+	cmd = code --wait --diff $LOCAL $REMOTE
+[diff]
+	tool = vscode
+[mergetool "vscode"]
+	cmd = code --wait $MERGED
 [http]
 	sslVerify = false
