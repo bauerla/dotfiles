@@ -5,7 +5,10 @@
 ################################
 # Oh My Zsh
 print -P "%F{cyan}\Updating Oh-My-Zsh (OMZ) and its plugins...\n%f"
-# update using autoupdate https://github.com/TamCore/autoupdate-oh-my-zsh-plugins#usage
+# Uses autoupdate plugin https://github.com/TamCore/autoupdate-oh-my-zsh-plugins#usage
+# Updates:
+#   - OMZ version
+#   - Custom plugins (all git-repositories under $ZSH_CUSTOM folder)
 upgrade_oh_my_zsh_all
 
 ################################
@@ -18,12 +21,5 @@ nvm upgrade
 print -P "%F{cyan}\nRunning 'brew update' & 'brew upgrade'...%f"
 brew update && brew upgrade
 
-################################
-# Powerlevel10k
-print -P "%F{cyan}\nFetching latest Powerlevel10k...%f"
-git -C ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k pull
 
 print -P "%F{cyan}\n...done! To restart shell run 'exec zsh'%f"
-
-# Restart the zsh session
-#exec zsh
