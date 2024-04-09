@@ -5,7 +5,7 @@
 # All changes are for my personal preference so feel free to adjust any to your liking before running the script.
 #
 # Settings changed by the script are grouped by their context and/or app in question with a comment.
-# Not every setting is explained as most of them are self explanatory so have added comment to only where needed IMO.  
+# Not every setting is explained as most of them are self explanatory so have added comment to only where needed IMO.
 #
 #
 # Parameters
@@ -67,10 +67,10 @@ if [[ -n $n[2] ]]; then
   sudo scutil --set HostName $n[2]
   sudo scutil --set LocalHostName $n[2]
   sudo defaults write /Library/Preferences/SystemConfiguration/com.apple.smb.server NetBIOSName -string $n[2]
-  
+
   # Flush DNS cache
   dscacheutil -flushcache
-  
+
   # Print out the names after changed
   print -P "%F{blue}Network names set:%f"
   print -P "\tComputerName:\t%B$(sudo scutil --get ComputerName)%b"
@@ -149,7 +149,7 @@ defaults -currentHost write -g AppleFontSmoothing -int 0
 
 
 ####################################
-# Dock & Menu bar 
+# Dock & Menu bar
 
 # Spaces automatic reordering
 defaults write com.apple.dock mru-spaces -bool false
@@ -278,8 +278,8 @@ defaults write -g ApplePressAndHoldEnabled -bool false
 
 # Disable crash report dialog and Bonjour adds
 defaults write com.apple.CrashReporter DialogType none
-/usr/bin/sudo /usr/bin/defaults write /Library/Preferences/com.apple.mDNSResponder.plist NoMulticastAdvertisements -bool true
-
+# note: set to "false" if Airdrop not working between iOS & macOS
+/usr/bin/sudo /usr/bin/defaults write /Library/Preferences/com.apple.mDNSResponder.plist NoMulticastAdvertisements -bool false
 
 ####################################
 # App specific configurations
