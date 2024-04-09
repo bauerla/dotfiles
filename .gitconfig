@@ -3,7 +3,7 @@
 [includeIf "gitdir:~/projects/github/"]
   path = ~/projects/github/.gitconfig
 [credential]
-	helper = cache
+  helper = cache
 [core]
   autocrlf = input # Convert CRLF to LF on commit, line endings should be LF in the repository
   eol = lf # default: native. makes sure to have LF line endings on checkouts
@@ -11,14 +11,16 @@
   editor = code --wait --new-window
   pager = less -F -X
   ignorecase = false
-	excludesfile = ~/.gitignore_global
+  excludesFile = ~/.gitignore_global
 [color]
   ui = auto
 [log]
   reverse = false
 [alias]
-  gprbm = "!f() {git pull --rebase origin ${1-master}}"
+  gprbm = "!git pull --rebase origin ${1-master}"
+  ggup= "!git update-from origin $(git_current_branch)"
   gpullstash = !git fetch --all && git stash && git merge @{upstream} && git stash pop
+  br = rev-parse --abbrev-ref HEAD
   unstage = reset HEAD --
   last = log -1 HEAD
   branchdate = !git for-each-ref --sort='authordate' --format='%(authordate:iso8601)%09%(objectname:short)%09%(refname)' refs/heads | sed -e 's-refs/heads/--'
@@ -27,17 +29,24 @@
   bclean = "!f() { git branch --merged ${1-master} | grep -v " ${1-master}$" | xargs -r git branch -d; }; f"
   new = !sh -c 'git log $1@{1}..$1@{0} "$@"'
   sortdiff = !sh -c 'git diff "$@" | grep "^[+-]" | sort --key=1.2 | uniq -u -s1'
+  file = "!git describe --contains `git rev-list HEAD \"$1\"` #"
   stash-staged = "!f() { git stash --keep-index; git stash push -m "staged `date +%Y-%m-%d-%H:%M`" --keep-index; git stash pop stash@{1} }; f"
+  all = "!f() { ls -R -d */.git | sed s,/.git,, | xargs -t -P10 -I{} git -C {} $@; }; f"
+  lsr = "!git ls-remote --exit-code origin ${1-`git br`}; echo $?"
+  aliasses = !git config --get-regexp alias
+	se = !git rev-list --all | xargs git grep -F
 [push]
   followTags = false
 [merge]
   tool = vscode
   ff = only
 [difftool "vscode"]
-	cmd = code --wait --diff $LOCAL $REMOTE
+  cmd = code --wait --new-window --diff $LOCAL $REMOTE
 [diff]
-	tool = vscode
+  tool = vscode --wait --new-window
 [mergetool "vscode"]
-	cmd = code --wait $MERGED
+  cmd = code --wait --new-window $MERGED
+[sequence]
+  editor = code --wait --reuse-window
 [http]
-	sslVerify = false
+  sslVerify = false
