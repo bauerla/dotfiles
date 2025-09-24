@@ -1,6 +1,6 @@
 #!/bin/zsh
 
-# Use user's Brewfile if found in home directory 
+# Use user's Brewfile if found in home directory
 brewfile_path=~/dotfiles-setup/Brewfile
 [[ -f "$HOME/Brewfile" ]] && brewfile_path=~/Brewfile
 
@@ -12,12 +12,6 @@ export HOMEBREW_CASK_OPTS="--appdir=~/Applications" # install to user App dir (a
 ################################
 # Taps
 print -P "\n%F{cyan}Adding common Taps and upgrading...%f"
-
-brew tap homebrew/bundle
-brew tap homebrew/cask
-brew tap homebrew/cask-versions
-brew tap homebrew/cask-fonts
-#brew tap homebrew/services # installed automatically when first run
 
 # Cask completion
 brew install brew-cask-completion
