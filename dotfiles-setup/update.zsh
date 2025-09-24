@@ -4,12 +4,16 @@
 
 ################################
 # Oh My Zsh
-print -P "%F{cyan}\Updating Oh-My-Zsh (OMZ) and its plugins...\n%f"
+print -P "%F{cyan}\nUpdating Oh-My-Zsh (OMZ) and its plugins...\n%f"
 # Uses autoupdate plugin https://github.com/TamCore/autoupdate-oh-my-zsh-plugins#usage
 # Updates:
 #   - OMZ version
 #   - Custom plugins (all git-repositories under $ZSH_CUSTOM folder)
 upgrade_oh_my_zsh_all
+
+# Powerlevel10k
+print -P "%F{cyan}\nUpdating Powerlevel10k...%f"
+git -C "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k" pull
 
 ################################
 # NVM
