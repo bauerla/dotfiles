@@ -13,9 +13,6 @@ export HOMEBREW_CASK_OPTS="--appdir=~/Applications" # install to user App dir (a
 # Taps
 print -P "\n%F{cyan}Adding common Taps and upgrading...%f"
 
-# Cask completion
-brew install brew-cask-completion
-
 # Update
 brew update --quiet & brew upgrade
 
@@ -49,7 +46,7 @@ fi
 
 ################################
 # Post cleanup and validation
-print -P "\n%F{cyan}Doing housekeeping...%f"
+print -P "\n%F{cyan}Doing some homebrew housekeeping...%f"
 brew cleanup & brew doctor
 
 print -P "\n%F{cyan}Done!%f"
