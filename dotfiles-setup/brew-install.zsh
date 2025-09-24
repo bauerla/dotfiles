@@ -6,10 +6,10 @@ if [[ $(command -v brew) == "" ]]; then
 
   # disable analytics
   brew analytics off # disable analytics
-  
-  print -P "%F{yellow}Important: Remember to close and reopen the terminal to be able to `brew`!%f"
+
+  print -P "%F{yellow}Important: Remember to close and reopen the terminal to be able to use%f %F{magenta}brew%f"
 else
-  print -P "%F{cyan}Yay! You have Homebrew installed already!%F{cyan}\nRunning update and upgrade... %f"
+  print -P "%F{cyan}Yay! You have Homebrew installed already!\nRunning update and upgrade... %f"
   # do update and upgrade
   brew update && brew upgrade
 fi
