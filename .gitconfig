@@ -8,7 +8,7 @@
   autocrlf = input # Convert CRLF to LF on commit, line endings should be LF in the repository
   eol = lf # default: native. makes sure to have LF line endings on checkouts
   fileMode = false # ignores filemode differences
-  editor = code --wait --new-window
+  editor = code --wait
   pager = less -F -X
   ignorecase = false
   excludesFile = ~/.gitignore_global
@@ -17,8 +17,8 @@
 [log]
   reverse = false
 [alias]
-  gprbm = "!git pull --rebase origin ${1-master}"
-  ggup= "!git update-from origin $(git_current_branch)"
+  gprbm = "!git pull --rebase origin ${1-master}" # TODO: fix arguments!
+  ggup= "!git update-from origin $(git_current_branch)" # TODO: fix variable!
   gpullstash = !git fetch --all && git stash && git merge @{upstream} && git stash pop
   br = rev-parse --abbrev-ref HEAD
   unstage = reset HEAD --
@@ -34,18 +34,18 @@
   all = "!f() { ls -R -d */.git | sed s,/.git,, | xargs -t -P10 -I{} git -C {} $@; }; f"
   lsr = "!git ls-remote --exit-code origin ${1-`git br`}; echo $?"
   aliasses = !git config --get-regexp alias
-	se = !git rev-list --all | xargs git grep -F
+  se = !git rev-list --all | xargs git grep -F
 [push]
   followTags = false
 [merge]
-  tool = vscode
+  tool = vscode --wait
   ff = only
 [difftool "vscode"]
-  cmd = code --wait --new-window --diff $LOCAL $REMOTE
+  cmd = code --wait --diff $LOCAL $REMOTE
 [diff]
-  tool = vscode --wait --new-window
+  tool = vscode
 [mergetool "vscode"]
-  cmd = code --wait --new-window $MERGED
+  cmd = code --wait $MERGED
 [sequence]
   editor = code --wait --reuse-window
 [http]
