@@ -11,7 +11,7 @@ brew "docker" # https://www.docker.com/
 brew "docker-compose" # https://docs.docker.com/compose/
 brew "pyenv" # https://github.com/pyenv/pyenv
 brew "yarn" # https://yarnpkg.com/
-brew "mongodb/brew/mongodb-community@4.4"
+brew "mongodb/brew/mongodb-community@7.0"
 cask "android-studio"  # https://developer.android.com/studio/
 cask "visual-studio-code" # https://code.visualstudio.com/
 cask "google-cloud-sdk" # https://cloud.google.com/sdk/

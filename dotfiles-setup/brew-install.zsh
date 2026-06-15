@@ -1,5 +1,12 @@
 #!/bin/zsh
 
+# Detect architecture (Apple Silicon installs to /opt/homebrew, Intel to /usr/local)
+if [[ $(uname -m) == "arm64" ]]; then
+  print -P "%F{cyan}Detected Apple Silicon — Homebrew will install to /opt/homebrew%f"
+else
+  print -P "%F{cyan}Detected Intel — Homebrew will install to /usr/local%f"
+fi
+
 # Check if Homebrew installed already
 if [[ $(command -v brew) == "" ]]; then
   /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
