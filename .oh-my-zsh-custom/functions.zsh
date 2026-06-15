@@ -24,8 +24,13 @@ smartresize() {
 
 # ffmpeg mp4 to webm
 towebm() {
+  if [[ $# -eq 0 ]] ; then
+		echo "Usage: give file path as a first argument, any optional ffmpeg parameters will follow"
+    exit 0;
+	fi
   filename=$1:t:r
-  ffmpeg -i $1 -v info -c:v libvpx-vp9 -pix_fmt yuv420p "$filename".webm "${@:2}"
+  echo "${@:2}"
+  ffmpeg -i $1 -v info -c:v libvpx-vp9  -pix_fmt yuv420p -b:v 0 -crf 32 -threads 0 "${@:2}" "$filename".webm
 }
 
 # Kill apps using specific port
