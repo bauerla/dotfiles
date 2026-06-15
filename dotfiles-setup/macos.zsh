@@ -26,7 +26,7 @@ zparseopts -D -E -F -hostname:=n -skip-hardening=h || exit 1
 #HARDENING=${$HARDENING:-true}
 
 # close any system preference windows first
-osascript -e 'tell application "System Preferences" to quit'
+osascript -e 'tell application "System Settings" to quit'
 
 # Ask for the administrator password upfront
 sudo -v
@@ -45,8 +45,10 @@ if [[ -z $h ]]; then
   sudo /usr/libexec/ApplicationFirewall/socketfilterfw --setglobalstate on
 
   # Enable FileVault
-  print -P "%F{blue}Enabling FileVault...%f"
-  test $(fdesetup isactive) || echo -e "\nEnabling FileVault..." && sudo fdesetup enable
+  if ! fdesetup isactive >/dev/null 2>&1; then
+    print -P "%F{blue}Enabling FileVault...%f"
+    sudo fdesetup enable
+  fi
   sudo fdesetup status
 
   # Other hardening
@@ -59,8 +61,8 @@ fi
 ####################################
 # Hostname
 
-# - 'ComputerName', 'HostName' & 'LocalHostName' (System Preferences -> Sharing)
-# - 'NetBIOSName' (System Preferences -> Networks -> Advanced...)
+# - 'ComputerName', 'HostName' & 'LocalHostName' (System Settings -> General -> Sharing)
+# - 'NetBIOSName' (System Settings -> Network -> interface -> Advanced...)
 
 if [[ -n $n[2] ]]; then
   sudo scutil --set ComputerName $n[2]
@@ -87,6 +89,7 @@ fi
 # Increase Bluetooth audio quality
 defaults write com.apple.BluetoothAudioAgent "Apple Bitpool Min (editable)" -int 40
 # Disable the sound effects on boot
+# Note: nvram modifications may be silently ignored on macOS 12+ (Tahoe) due to SIP/security restrictions
 sudo nvram SystemAudioVolume=" "
 
 
@@ -142,9 +145,11 @@ defaults write com.apple.mail DisableReplyAnimations -bool true
 defaults write com.apple.mail DisableSendAnimations -bool false
 
 # Enable font subpixel anti-aliasing (revert if any problems occurs)
+# Deprecated in macOS 14+ (Sonoma/Tahoe) - may have no effect on modern displays
 defaults write -g CGFontRenderingFontSmoothingDisabled -bool false
 
 # Disable font smoothing. Values 0-3
+# Deprecated in macOS 14+ (Sonoma/Tahoe) - may have no effect on modern displays
 defaults -currentHost write -g AppleFontSmoothing -int 0
 
 
@@ -159,7 +164,7 @@ defaults write com.apple.menuextra.battery ShowPercent -string "YES"
 defaults write com.apple.menuextra.battery ShowTime -bool false
 
 # Dock
-defaults write com.apple.dock presistent-apps -array # remove stock apps
+defaults write com.apple.dock persistent-apps -array # remove stock apps
 defaults write com.apple.dock autohide -bool true
 defaults write com.apple.dock autohide-delay -float 0
 defaults write com.apple.dock autohide-time-modifier -float 0.2
@@ -175,12 +180,12 @@ defaults write -g NSDisableAutomaticTermination -bool true
 
 # Clock
 ## Thu 18 Aug 23:46:10
-## System Preferences > Date & Time > Display time with seconds - Checked [:ss]
-## System Preferences > Date & Time > Use a 24-hour clock - Checked [HH:mm]
-## System Preferences > Date & Time > Show AM/PM - Unchecked
-## System Preferences > Date & Time > Show the day of the week - Checked [EEE]
-## System Preferences > Date & Time > Show date - Checked [d MMM]
-sudo defaults write com.apple.menuextra.clock DateFormat -string "\"EEE d MMM HH:mm:ss\""
+## System Settings > General > Date & Time > Display time with seconds - Checked [:ss]
+## System Settings > General > Date & Time > Use a 24-hour clock - Checked [HH:mm]
+## System Settings > General > Date & Time > Show AM/PM - Unchecked
+## System Settings > General > Date & Time > Show the day of the week - Checked [EEE]
+## System Settings > General > Date & Time > Show date - Checked [d MMM]
+sudo defaults write com.apple.menuextra.clock DateFormat -string 'EEE d MMM HH:mm:ss'
 
 
 ####################################
