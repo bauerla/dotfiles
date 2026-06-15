@@ -34,6 +34,8 @@ plugins+=(
   autoupdate
   alias-finder
   encode64
+  command-not-found
+  safe-paste
   zsh-syntax-highlighting
   zsh-autosuggestions
 )
@@ -49,24 +51,6 @@ source $ZSH/oh-my-zsh.sh
 
 ### User customizations after this ###
 
-
-# GNU tools - Uncomment if prefer using without g prefix (replaces BSD tools)
-export PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"
-export PATH="/usr/local/opt/gnu-sed/libexec/gnubin:$PATH"
-export PATH="/usr/local/opt/gnu-tar/libexec/gnubin:$PATH"
-export PATH="/usr/local/opt/gnu-indent/libexec/gnubin:$PATH"
-export PATH="/usr/local/opt/gnu-which/libexec/gnubin:$PATH"
-
-# Homebrew's "sbin"
-export PATH="/usr/local/sbin:$PATH"
-# Man
-export MANPATH="/usr/local/man:$MANPATH"
-# curl
-export PATH="/usr/local/opt/curl/bin:$PATH"
-# Lang
-export LANG=en_US.UTF-8
-# JDK
-export PATH="/usr/local/opt/openjdk/bin:$PATH"
 
 # Preferred editor for local and remote sessions
 if [[ -n $SSH_CONNECTION ]]; then
@@ -92,3 +76,6 @@ setopt HIST_FIND_NO_DUPS         # Do not display a line previously found.
 # sdkman init must be at the end of the file
 export SDKMAN_DIR="$HOME/.sdkman"
 [[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
+
+# fzf autocompletion
+source <(fzf --zsh)
