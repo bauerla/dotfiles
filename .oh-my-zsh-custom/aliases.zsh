@@ -1,8 +1,8 @@
 #!/bin/zsh
 
 # Config files
-alias zshconfig="mate ~/.zshrc"
-alias ohmyzsh="mate ~/.oh-my-zsh"
+alias zshconfig="$EDITOR ~/.zshrc &"
+alias ohmyzsh="$EDITOR ~/.oh-my-zsh &"
 
 # dotfiles
 alias dotfiles="/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME"
@@ -18,3 +18,6 @@ fi
 
 # start iOS simulator
 alias start-simulator="open /Applications/Xcode.app/Contents/Developer/Applications/Simulator.app"
+
+# tldr
+alias tldrview='tldr --list | fzf --preview "tldr {1}" --preview-window=right,70% | xargs tldr'
