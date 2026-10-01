@@ -1,3 +1,7 @@
+# The following lines were added by Docker Desktop to add commands to your PATH.
+export PATH="$PATH:/Users/401366/.docker/bin"
+# End of Docker Desktop section.
+
 # Homebrew location on Apple M1
 if [[ `uname -m` == 'arm64' ]]; then
   eval $(/opt/homebrew/bin/brew shellenv)
@@ -50,3 +54,6 @@ export PATH="$PATH:$HOME/devtools/depot_tools"
 # pyenv
 export PYENV_ROOT="$HOME/.pyenv"
 command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
+
+
+export PATH="/Users/401366/.local/bin:$PATH"
