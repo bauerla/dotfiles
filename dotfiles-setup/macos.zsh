@@ -28,6 +28,17 @@ zparseopts -D -E -F -hostname:=n -skip-hardening=h || exit 1
 # close any system preference windows first
 osascript -e 'tell application "System Settings" to quit'
 
+# Verify the user is in the sudoers (admin) group before proceeding
+if ! dseditgroup -o checkmember -m "$USER" admin &>/dev/null; then
+  print -P "%F{red}Warning: '$USER' does not appear to be in the admin group, so sudo privileges may not be available.%f"
+  print -n "Continue anyway? [y/N] "
+  read -r REPLY
+  if [[ ! "$REPLY" =~ ^[Yy]$ ]]; then
+    print -P "%F{red}Aborting.%f"
+    exit 1
+  fi
+fi
+
 # Ask for the administrator password upfront
 sudo -v
 
