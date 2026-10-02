@@ -68,11 +68,11 @@ dotfiles-setup/                   optional post-setup scripts, see below
 These are not run by the bootstrap script. Run manually, after the dotfiles above are checked out. Suggested order:
 
 1. **`brew-install.zsh`** — installs Homebrew (handles both Apple Silicon and Intel install paths) if not present; otherwise runs `brew update && brew upgrade`.
-2. **`brew-packages.zsh`** — installs core CLI tools (git, wget, curl, GNU coreutils/sed/tar/indent/which) and iTerm2, then interactively prompts to install packages from a Brewfile — your own `~/Brewfile` if present, otherwise `dotfiles-setup/Brewfile`, or skip entirely.
+2. **`brew-packages.zsh`** — installs core CLI tools (git, wget, curl — kept here rather than in the Brewfile so you get Homebrew's latest versions regardless of what macOS ships), then interactively prompts to install packages from a Brewfile — your own `~/Brewfile` if present, otherwise `dotfiles-setup/Brewfile`, or skip entirely.
 3. **`shell-tools.zsh`** — installs iTerm2 shell integration, Oh My Zsh plus plugins (zsh-autosuggestions, zsh-syntax-highlighting, autoupdate-oh-my-zsh-plugins, evalcache), Powerlevel10k and its recommended Nerd Font, and SDKMAN.
 4. **`macos.zsh`** — applies personal macOS system preference tweaks (trackpad, keyboard, Finder, Safari, etc.). These are the repo owner's own preferences — adjust to taste before running.
 
-**`Brewfile`** is the package list used by step 2 (dev tools, GUI apps, fonts, CLI utilities — mongodb, docker, pyenv, yarn, android-studio, vscode, google-cloud-sdk, postman, ffmpeg, imagemagick, chrome, firefox, spotify, etc.).
+**`Brewfile`** is the package list used by step 2 (dev tools, GUI apps, fonts, CLI utilities — mongodb, docker, pyenv, yarn, android-studio, vscode, google-cloud-sdk, postman, ffmpeg, imagemagick, chrome, firefox, spotify, iTerm2, GNU coreutils/sed/tar/indent/which, etc.). It's an opinionated starting point, not a mandate — swap in your own `~/Brewfile` instead if you don't want these choices dictated.
 
 **`update.zsh`** is for later maintenance, not initial setup — run it whenever to update Oh My Zsh and its custom plugins, Powerlevel10k, and run `brew update && brew upgrade` plus `brew cleanup && brew doctor`.
 
