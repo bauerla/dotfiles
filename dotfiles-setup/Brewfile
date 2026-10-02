@@ -1,10 +1,6 @@
 # Tap
 tap "mongodb/brew" # https://github.com/mongodb/homebrew-brew
 brew "mongodb/brew/mongodb-community@7.0"
-tap "teamookla/speedtest" # https://www.speedtest.net/apps/cli
-
-# Homebrew
-brew "brew-cask-completion" # https://github.com/xyb/homebrew-cask-completion
 
 # Development
 brew "openjdk" # https://openjdk.java.net/
@@ -21,10 +17,9 @@ cask "postman" # https://www.postman.com/
 brew "ffmpeg" # https://ffmpeg.org/
 brew "imagemagick" # https://imagemagick.org/
 brew "ghostscript" # ImageMagick depends on Ghostscript fonts - https://imagemagick.org/script/download.php
-brew "p7zip" # https://github.com/jinfeihan57/p7zip
 brew "pandoc" # https://pandoc.org/
 cask "basictex" # for Pandoc - https://www.tug.org/mactex/morepackages.html
-brew "rsync" # https://rsync.samba.org/
+brew "rsync" # https://rsync.samba.org/ - GNU rsync; macOS ships openrsync, which lacks --info=progress2 and some filter rules
 #cask "vlc" # From another source for me atm - https://www.videolan.org/vlc/
 
 # Command-line utils
@@ -33,19 +28,14 @@ brew "rsync" # https://rsync.samba.org/
 brew "coreutils"
 brew "gnu-sed"
 brew "gnu-tar"
-brew "gnu-indent"
-brew "gnu-which"
 brew "fd" # https://github.com/sharkdp/fd
 brew "htop" # https://htop.dev/
 brew "jo" # https://github.com/jpmens/jo
 brew "jq" # https://stedolan.github.io/jq/
 brew "mkcert" # https://github.com/FiloSottile/mkcert
-brew "nss"  # https://developer.mozilla.org/en-US/docs/Mozilla/Projects/NSS
-brew "pidof" # http://www.nightproductions.net/cli.htm
 brew "pstree" # http://www.thp.uni-duisburg.de/pstree/
 brew "pv" # https://www.ivarch.com/programs/pv.shtml
 brew "rename" # http://plasmasturm.org/code/rename
-brew "teamookla/speedtest/speedtest" # see top of the file
 brew "terminal-notifier" # https://github.com/julienXX/terminal-notifier
 brew "tree" # http://mama.indstate.edu/users/ice/tree/
 brew "hyperfine" # "https://github.com/sharkdp/hyperfine"
