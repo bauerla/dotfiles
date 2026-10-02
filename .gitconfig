@@ -3,7 +3,7 @@
 [includeIf "gitdir:~/projects/github/"]
   path = ~/projects/github/.gitconfig
 [credential]
-  helper = cache
+  helper = osxkeychain
 [core]
   autocrlf = input # Convert CRLF to LF on commit, line endings should be LF in the repository
   eol = lf # default: native. makes sure to have LF line endings on checkouts
@@ -48,5 +48,3 @@
   cmd = code --wait $MERGED
 [sequence]
   editor = code --wait --reuse-window
-[http]
-  sslVerify = false
