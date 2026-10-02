@@ -76,6 +76,22 @@ These are not run by the bootstrap script. Run manually, after the dotfiles abov
 
 **`update.zsh`** is for later maintenance, not initial setup — run it whenever to update Oh My Zsh and its custom plugins, Powerlevel10k, and run `brew update && brew upgrade` plus `brew cleanup && brew doctor`.
 
+## Security notes
+
+This repo is public. Review it before pointing your own `$HOME` at it:
+
+- `.gitconfig` sets `credential.helper = osxkeychain` (macOS Keychain) and relies on git's
+  default `http.sslVerify = true`. If you fork this for another OS or a corporate proxy
+  setup, check both settings still fit your environment before adopting them as-is.
+- `dotfiles-setup/brew-install.zsh` and `dotfiles-setup/shell-tools.zsh` install Homebrew,
+  Oh My Zsh, and SDKMAN by piping their official installer scripts straight into
+  `sh`/`bash` (the standard install method each project documents). None of these are
+  pinned to a specific version or checksum-verified here — read them before running if
+  you want to vet what they do first.
+- Work/personal git identity (name, email) is kept out of this repo via `includeIf
+  "gitdir:..."` in `.gitconfig`, pointing at untracked config files outside `$HOME`'s
+  tracked paths. If you adopt this pattern, keep your own identity files untracked too.
+
 ## Notes
 
 - Conflict detection compares the repo's tracked paths against what's already in `$HOME` directly (via `git ls-tree`), rather than parsing checkout error output — so filenames with spaces or other odd characters are handled correctly, and an unrelated file/directory can't get caught up in the backup by mistake.
