@@ -1,5 +1,6 @@
 # Tap
 tap "mongodb/brew" # https://github.com/mongodb/homebrew-brew
+brew "mongodb/brew/mongodb-community@7.0"
 tap "teamookla/speedtest" # https://www.speedtest.net/apps/cli
 
 # Homebrew
@@ -11,7 +12,6 @@ brew "docker" # https://www.docker.com/
 brew "docker-compose" # https://docs.docker.com/compose/
 brew "pyenv" # https://github.com/pyenv/pyenv
 brew "yarn" # https://yarnpkg.com/
-brew "mongodb/brew/mongodb-community@7.0"
 cask "android-studio"  # https://developer.android.com/studio/
 cask "visual-studio-code" # https://code.visualstudio.com/
 cask "google-cloud-sdk" # https://cloud.google.com/sdk/
@@ -28,6 +28,13 @@ brew "rsync" # https://rsync.samba.org/
 #cask "vlc" # From another source for me atm - https://www.videolan.org/vlc/
 
 # Command-line utils
+# GNU utilities (installed with 'g' prefix: gsed, gtar, etc.)
+# To use without prefix: export PATH="$(brew --prefix coreutils)/libexec/gnubin:$PATH"
+brew "coreutils"
+brew "gnu-sed"
+brew "gnu-tar"
+brew "gnu-indent"
+brew "gnu-which"
 brew "fd" # https://github.com/sharkdp/fd
 brew "htop" # https://htop.dev/
 brew "jo" # https://github.com/jpmens/jo
@@ -54,6 +61,7 @@ cask "font-hack-nerd-font"
 cask "font-jetbrains-mono-nerd-font" # my preference for Visual Studio Code
 
 # Apps
+cask "iterm2" # https://iterm2.com/ - shell integration set up in dotfiles-setup/shell-tools.zsh
 cask "appcleaner" # https://freemacsoft.net/appcleaner/
 cask "google-chrome"  # https://www.google.com/chrome/
 cask "firefox"  # https://www.mozilla.org/firefox/

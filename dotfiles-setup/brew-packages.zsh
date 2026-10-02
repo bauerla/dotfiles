@@ -14,22 +14,11 @@ brew update --quiet && brew upgrade
 
 ################################
 # Common core tools
-print -P "\n%F{cyan}Installing common tools (+ Iterm2)...%f"
+# git/wget/curl are kept here (not in Brewfile) so everyone gets Homebrew's
+# latest versions rather than whatever ships with the current macOS release.
+print -P "\n%F{cyan}Installing common tools...%f"
 
 brew install git wget curl
-
-# GNU utilities (installed with 'g' prefix: gsed, gtar, etc.)
-# To use without prefix: export PATH="$(brew --prefix coreutils)/libexec/gnubin:$PATH"
-brew install coreutils
-brew install gnu-sed
-brew install gnu-tar
-brew install gnu-indent
-brew install gnu-which
-
-
-################################
-# Iterm2 - shell integration in 'shell-tools.zsh'
-brew install iterm2
 
 
 ################################
