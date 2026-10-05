@@ -118,12 +118,18 @@ defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad TrackpadRightC
 defaults -currentHost write -g com.apple.trackpad.trackpadCornerClickBehavior -int 1
 defaults -currentHost write -g com.apple.trackpad.enableSecondaryClick -bool true
 
+# Mouse: tracking speed
+defaults write -g com.apple.mouse.scaling -float 0.6875
+
 # Keyboard: repeat and autocorrection settings
 defaults write -g InitialKeyRepeat -int 10 # normal minimum is 15 (225 ms)
 defaults write -g KeyRepeat -int 2 # normal minimum (30 ms)
 defaults write -g NSAutomaticSpellingCorrectionEnabled -bool false
 defaults write -g NSAutomaticQuoteSubstitutionEnabled -bool false
 defaults write -g NSAutomaticDashSubstitutionEnabled -bool false
+defaults write -g NSAutomaticCapitalizationEnabled -bool false
+defaults write -g NSAutomaticPeriodSubstitutionEnabled -bool false
+defaults write -g NSAutomaticTextCompletionEnabled -bool false
 
 # Use keyboard navigation to move focus between controls (tab-tab for everything): System & Safari
 defaults write -g AppleKeyboardUIMode -int 3
@@ -155,6 +161,12 @@ defaults write com.apple.dock expose-group-by-app -bool true
 defaults write com.apple.mail DisableReplyAnimations -bool true
 defaults write com.apple.mail DisableSendAnimations -bool false
 
+# Disable scroll animation
+defaults write -g NSScrollAnimationEnabled -bool false
+
+# Reduce desktop wallpaper tinting under windows
+defaults write -g AppleReduceDesktopTinting -bool true
+
 # Enable font subpixel anti-aliasing (revert if any problems occurs)
 # Deprecated in macOS 14+ (Sonoma/Tahoe) - may have no effect on modern displays
 defaults write -g CGFontRenderingFontSmoothingDisabled -bool false
@@ -169,6 +181,12 @@ defaults -currentHost write -g AppleFontSmoothing -int 0
 
 # Spaces automatic reordering
 defaults write com.apple.dock mru-spaces -bool false
+# Disable Spaces switch animation
+defaults write com.apple.dock workspaces-auto-swoosh -bool false
+
+# Stage Manager
+defaults write com.apple.WindowManager GloballyEnabled -bool false
+defaults write com.apple.WindowManager AutoHide -bool false
 
 # Menu
 defaults write com.apple.menuextra.battery ShowPercent -string "YES"
@@ -249,6 +267,8 @@ defaults write com.apple.finder ShowExternalHardDrivesOnDesktop -bool true
 defaults write com.apple.finder ShowHardDrivesOnDesktop -bool true
 defaults write com.apple.finder ShowMountedServersOnDesktop -bool true
 defaults write com.apple.finder ShowRemovableMediaOnDesktop -bool true
+defaults write com.apple.finder FinderSpawnTab -bool true # open folders as tabs instead of new windows
+defaults write com.apple.finder WarnOnEmptyTrash -bool false
 defaults write com.apple.screencapture disable-shadow -bool true
 defaults write com.apple.SoftwareUpdate ScheduleFrequency -int 1
 
@@ -296,6 +316,17 @@ defaults write -g ApplePressAndHoldEnabled -bool false
 defaults write com.apple.CrashReporter DialogType none
 # note: set to "false" if Airdrop not working between iOS & macOS
 /usr/bin/sudo /usr/bin/defaults write /Library/Preferences/com.apple.mDNSResponder.plist NoMulticastAdvertisements -bool false
+
+####################################
+# Privacy
+
+# Disable Siri
+defaults write com.apple.assistant.support "Assistant Enabled" -bool false
+
+# Disable personalized Apple advertising
+defaults write com.apple.AdLib allowApplePersonalizedAdvertising -bool false
+defaults write com.apple.AdLib allowIdentifierForAdvertising -bool false
+
 
 ####################################
 # App specific configurations
