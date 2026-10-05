@@ -6,6 +6,11 @@
 print -P "%F{magenta}Install iTerm2 shell integration...%f"
 curl -L https://iterm2.com/shell_integration/zsh -o $HOME/.iterm2_shell_integration.zsh
 
+# Point iTerm2 at the tracked preferences file in this repo (iterm2/com.googlecode.iterm2.plist)
+# rather than its default ~/Library/Preferences location, so the dotfiles-managed profile loads.
+defaults write com.googlecode.iterm2.plist PrefsCustomFolder -string "~/iterm2"
+defaults write com.googlecode.iterm2.plist LoadPrefsFromCustomFolder -bool true
+
 
 ################################
 # Oh-My-Zsh & plugins

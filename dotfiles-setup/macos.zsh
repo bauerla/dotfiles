@@ -334,10 +334,6 @@ defaults write com.apple.AdLib allowIdentifierForAdvertising -bool false
 # Iterm2
 # don’t display the annoying prompt when quitting iTerm
 defaults write com.googlecode.iterm2 PromptOnQuit -bool false
-# specify the preferences directory
-defaults write com.googlecode.iterm2.plist PrefsCustomFolder -string "~/iterm2"
-# use the custom preferences in the directory
-defaults write com.googlecode.iterm2.plist LoadPrefsFromCustomFolder -bool true
 
 # Chrome: disable two finger back/forward in Chrome
 defaults write com.google.Chrome AppleEnableSwipeNavigateWithScrolls -bool false

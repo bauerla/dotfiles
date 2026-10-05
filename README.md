@@ -7,10 +7,8 @@ Personal macOS dotfiles, managed as a bare git repo checked out directly into `$
 On a fresh Mac, requires Xcode Command Line Tools (`xcode-select --install`) — the bootstrap script checks for this and exits with instructions if missing.
 
 ```zsh
-sh -c "$(curl -fsSL <gist-url>)"
+sh -c "$(curl -fsSL https://gist.githubusercontent.com/bauerla/85d9fc7dad306041eda8634857dd0ef9/raw/dotfiles-setup.zsh)"
 ```
-
-(Replace `<gist-url>` with the raw URL of the bootstrap gist.)
 
 What it does:
 
@@ -67,10 +65,12 @@ dotfiles-setup/                   optional post-setup scripts, see below
 
 These are not run by the bootstrap script. Run manually, after the dotfiles above are checked out. Suggested order:
 
-1. **`brew-install.zsh`** — installs Homebrew (handles both Apple Silicon and Intel install paths) if not present; otherwise runs `brew update && brew upgrade`.
-2. **`brew-packages.zsh`** — installs core CLI tools (git, wget, curl — kept here rather than in the Brewfile so you get Homebrew's latest versions regardless of what macOS ships), then interactively prompts to install packages from a Brewfile — your own `~/Brewfile` if present, otherwise `dotfiles-setup/Brewfile`, or skip entirely.
-3. **`shell-tools.zsh`** — installs iTerm2 shell integration, Oh My Zsh plus plugins (zsh-autosuggestions, zsh-syntax-highlighting, autoupdate-oh-my-zsh-plugins, evalcache), Powerlevel10k and its recommended Nerd Font, and SDKMAN.
-4. **`macos.zsh`** — applies personal macOS system preference tweaks (trackpad, keyboard, Finder, Safari, etc.). These are the repo owner's own preferences — adjust to taste before running.
+The order below isn't arbitrary — each step depends on something the previous one installs:
+
+1. **`brew-install.zsh`** — installs Homebrew (handles both Apple Silicon and Intel install paths) if not present; otherwise runs `brew update && brew upgrade`. Runs first because every later script assumes `brew` is on `PATH`.
+2. **`brew-packages.zsh`** — installs core CLI tools (git, wget, curl — kept here rather than in the Brewfile so you get Homebrew's latest versions regardless of what macOS ships), then interactively prompts to install packages from a Brewfile — your own `~/Brewfile` if present, otherwise `dotfiles-setup/Brewfile`, or skip entirely. Installs `wget`, which step 3 needs for font downloads, and (if you take the dotfiles Brewfile) apps like iTerm2/Chrome/VS Code that step 4 configures.
+3. **`shell-tools.zsh`** — installs iTerm2 shell integration, Oh My Zsh plus plugins (zsh-autosuggestions, zsh-syntax-highlighting, autoupdate-oh-my-zsh-plugins, evalcache), Powerlevel10k and its recommended Nerd Font, and SDKMAN. Needs `wget` from step 2. Also points iTerm2 at the tracked `iterm2/com.googlecode.iterm2.plist` in this repo (`PrefsCustomFolder`/`LoadPrefsFromCustomFolder`), so the dotfiles-managed iTerm2 profile actually loads.
+4. **`macos.zsh`** — applies personal macOS system preference tweaks (trackpad, keyboard, Finder, Safari, etc.). These are the repo owner's own preferences — adjust to taste before running. **Fully optional** — nothing else in this repo depends on it running.
 
 **`Brewfile`** is the package list used by step 2 (dev tools, GUI apps, fonts, CLI utilities — mongodb, docker, pyenv, yarn, android-studio, vscode, google-cloud-sdk, postman, ffmpeg, imagemagick, chrome, firefox, spotify, iTerm2, GNU coreutils/sed/tar/indent/which, etc.). It's an opinionated starting point, not a mandate — swap in your own `~/Brewfile` instead if you don't want these choices dictated.
 
