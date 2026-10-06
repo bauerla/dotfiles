@@ -7,7 +7,7 @@ Personal macOS dotfiles, managed as a bare git repo checked out directly into `$
 On a fresh Mac, requires Xcode Command Line Tools (`xcode-select --install`) — the bootstrap script checks for this and exits with instructions if missing.
 
 ```zsh
-sh -c "$(curl -fsSL https://gist.githubusercontent.com/bauerla/85d9fc7dad306041eda8634857dd0ef9/raw/dotfiles-setup.zsh)"
+zsh -c "$(curl -fsSL https://gist.githubusercontent.com/bauerla/85d9fc7dad306041eda8634857dd0ef9/raw/dotfiles-setup.zsh)"
 ```
 
 What it does:
@@ -18,7 +18,7 @@ What it does:
 4. Checks which tracked paths already exist in `$HOME` (e.g. a pre-existing `.zshrc`) and moves only those to `~/.dotfiles-backup-MM-DD-YY/`, preserving their relative path, before touching anything.
 5. Checks out the repo with `$HOME` as the work-tree. If checkout still fails after the backup step, the script stops and exits non-zero rather than leaving things half-done silently — check `dotfiles status` and the backup directory if that happens.
 
-Day to day, use this shell function to operate on the repo (it's not defined in your shell until you add it yourself, e.g. to `.zshrc`, or you just inline the `--git-dir`/`--work-tree` flags):
+Day to day, use this shell function to operate on the repo. It's already defined as an alias in `.oh-my-zsh-custom/aliases.zsh`, so it's available once that file is checked out and sourced (restart your shell, or `exec zsh`). To use it standalone without Oh My Zsh, define it yourself, e.g. in `.zshrc`, or just inline the `--git-dir`/`--work-tree` flags:
 
 ```zsh
 dotfiles() { /usr/bin/git --git-dir=$HOME/.dotfiles --work-tree=$HOME "$@"; }
