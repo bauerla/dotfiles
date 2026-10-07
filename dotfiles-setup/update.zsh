@@ -5,6 +5,19 @@
 # Source user shell env
 source "$HOME/.zshrc"
 
+# .zshrc doesn't put brew on PATH itself (that's .zprofile, only sourced in
+# login shells) — re-run shellenv here if brew still isn't resolvable.
+if [[ $(command -v brew) == "" ]]; then
+  if [[ -x /opt/homebrew/bin/brew ]]; then
+    eval "$(/opt/homebrew/bin/brew shellenv zsh)"
+  elif [[ -x /usr/local/bin/brew ]]; then
+    eval "$(/usr/local/bin/brew shellenv zsh)"
+  else
+    print -P "%F{red}brew not found on PATH and not installed at the expected location.%f\nRun %Bbrew-install.zsh%b first, then rerun this script."
+    exit 1
+  fi
+fi
+
 ################################
 # Oh My Zsh
 print -P "%F{cyan}\nUpdating Oh-My-Zsh (OMZ) and its plugins...\n%f"
