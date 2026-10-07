@@ -59,8 +59,11 @@ else
     [[ "$brewfile_choice" =~ ^[12]$ ]] && break
     print -P "%F{yellow}Please enter 1 or 2%f"
   done
-  # remap to shared case numbers: 2 (skip) → 3
-  [[ "$brewfile_choice" == "2" ]] && brewfile_choice=3
+  # remap to shared case numbers: 1 (dotfiles Brewfile) → 2, 2 (skip) → 3
+  case "$brewfile_choice" in
+    1) brewfile_choice=2 ;;
+    2) brewfile_choice=3 ;;
+  esac
 fi
 
 case "$brewfile_choice" in
