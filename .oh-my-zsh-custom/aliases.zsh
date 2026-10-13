@@ -5,7 +5,7 @@ alias zshconfig="$EDITOR ~/.zshrc &"
 alias ohmyzsh="$EDITOR ~/.oh-my-zsh &"
 
 # dotfiles
-alias dotfiles="/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME"
+alias dotfiles='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
 
 # shell
 alias ls="ls -GFph"

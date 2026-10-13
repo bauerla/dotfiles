@@ -1,3 +1,6 @@
+# deduplicate any redundant paths across shell startups
+typeset -U path PATH
+
 # The following lines were added by Docker Desktop to add commands to your PATH.
 export PATH="$PATH:$HOME/.docker/bin"
 # End of Docker Desktop section.
@@ -13,12 +16,8 @@ FPATH="$(brew --prefix)/share/zsh/site-functions:${FPATH}"
 # Homebrew app install folder
 export HOMEBREW_CASK_OPTS="--appdir=~/Applications"
 
-# GCP
-source "$(brew --prefix)/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.zsh.inc"
-source "$(brew --prefix)/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.zsh.inc"
-
-# Created by `pipx` on 2026-02-23 10:27:34
-export PATH="$PATH:$HOME/.local/bin"
+# Prepend ~/.local/bin
+export PATH="$HOME/.local/bin:$PATH"
 
 # GNU tools — override BSD tools with GNU versions (brew-packages.zsh installs with g-prefix by default)
 export PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"
@@ -55,5 +54,10 @@ export PATH="$PATH:$HOME/devtools/depot_tools"
 export PYENV_ROOT="$HOME/.pyenv"
 command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
 
-
 export PATH="$HOME/.local/bin:$PATH"
+
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f "$HOME/Downloads/google-cloud-sdk/path.zsh.inc" ]; then . "$HOME/Downloads/google-cloud-sdk/path.zsh.inc"; fi
+
+# The next line enables shell command completion for gcloud.
+if [ -f "$HOME/Downloads/google-cloud-sdk/completion.zsh.inc" ]; then . "$HOME/Downloads/google-cloud-sdk/completion.zsh.inc"; fi
