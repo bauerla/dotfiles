@@ -1,26 +1,24 @@
-# Tap
-tap "mongodb/brew" # https://github.com/mongodb/homebrew-brew
-brew "mongodb/brew/mongodb-community@7.0"
 
 # Development
 brew "openjdk" # https://openjdk.java.net/
-brew "docker" # https://www.docker.com/
 brew "docker-compose" # https://docs.docker.com/compose/
-brew "pyenv" # https://github.com/pyenv/pyenv
 brew "yarn" # https://yarnpkg.com/
-cask "android-studio"  # https://developer.android.com/studio/
-cask "visual-studio-code" # https://code.visualstudio.com/
-cask "google-cloud-sdk" # https://cloud.google.com/sdk/
-cask "postman" # https://www.postman.com/
+cask "gcloud-cli" # https://cloud.google.com/sdk/
+#cask "android-studio"  # https://developer.android.com/studio/
+#cask "visual-studio-code" # https://code.visualstudio.com/
+#cask "postman" # https://www.postman.com/
 
-# Media & documents
-brew "ffmpeg" # https://ffmpeg.org/
-brew "imagemagick" # https://imagemagick.org/
-brew "ghostscript" # ImageMagick depends on Ghostscript fonts - https://imagemagick.org/script/download.php
-brew "pandoc" # https://pandoc.org/
-cask "basictex" # for Pandoc - https://www.tug.org/mactex/morepackages.html
-brew "rsync" # https://rsync.samba.org/ - GNU rsync; macOS ships openrsync, which lacks --info=progress2 and some filter rules
-#cask "vlc" # From another source for me atm - https://www.videolan.org/vlc/
+brew "pyenv" # https://github.com/pyenv/pyenv and dependencies https://github.com/pyenv/pyenv/wiki#suggested-build-environment
+brew "openssl@3"
+brew "openssl"
+brew "readline"
+brew "sqlite3"
+brew "xz"
+brew "tcl-tk@8"
+brew "libb2"
+brew "zstd"
+brew "zlib"
+brew "pkgconfig"
 
 # Command-line utils
 # GNU utilities (installed with 'g' prefix: gsed, gtar, etc.)
@@ -39,11 +37,17 @@ brew "rename" # http://plasmasturm.org/code/rename
 brew "terminal-notifier" # https://github.com/julienXX/terminal-notifier
 brew "tree" # http://mama.indstate.edu/users/ice/tree/
 brew "hyperfine" # "https://github.com/sharkdp/hyperfine"
+brew "fzf" # fhttps://github.com/junegunn/fzf
+brew "bash" # for some tools although zsh is the default shell
 
-# Screensavers
-cask "aerial" # https://github.com/JohnCoates/Aerial
-cask "brooklyn" # https://github.com/pedrommcarrasco/Brooklyn
-cask "developerexcuses" # https://github.com/kimar/DeveloperExcuses
+# Media & documents
+brew "ffmpeg" # https://ffmpeg.org/
+brew "imagemagick" # https://imagemagick.org/
+brew "ghostscript" # ImageMagick depends on Ghostscript fonts - https://imagemagick.org/script/download.php
+brew "pandoc" # https://pandoc.org/
+cask "basictex" # for Pandoc - https://www.tug.org/mactex/morepackages.html
+brew "rsync" # https://rsync.samba.org/ - GNU rsync; macOS ships openrsync, which lacks --info=progress2 and some filter rules
+#cask "vlc" # From another source for me atm - https://www.videolan.org/vlc/
 
 # Fonts - https://github.com/Homebrew/homebrew-cask-fonts
 cask "font-fira-code-nerd-font"
@@ -53,21 +57,19 @@ cask "font-jetbrains-mono-nerd-font" # my preference for Visual Studio Code
 # Apps
 cask "iterm2" # https://iterm2.com/ - shell integration set up in dotfiles-setup/shell-tools.zsh
 cask "appcleaner" # https://freemacsoft.net/appcleaner/
-cask "google-chrome"  # https://www.google.com/chrome/
-cask "firefox"  # https://www.mozilla.org/firefox/
+cask "skitch" # https://evernote.com/products/skitch/
 cask "spotify"  # https://www.spotify.com/
-cask "suspicious-package" # https://www.mothersruin.com/software/SuspiciousPackage/
-cask "skitch" # https://evernote.com/products/skitch
-
-# Other
-brew "mas"  # https://github.com/mas-cli/mas
+#cask "google-chrome"  # https://www.google.com/chrome/
+#cask "firefox"  # https://www.mozilla.org/firefox/
+#cask "suspicious-package" # https://www.mothersruin.com/software/SuspiciousPackage/
 
 # Virtualization
 #cask "virtualbox"  # https://www.virtualbox.org/
 #cask "virtualbox-extension-pack" # https://www.virtualbox.org/
-#cask "docker" # https://www.docker.com/products/docker-desktop
+cask "docker" # https://www.docker.com/products/docker-desktop
 
-# App Store apps (via mas)
-mas "Bitwarden", id: 1352778147
-mas "CopyClip", id: 595191960
-mas "Xcode", id: 497799835
+# Screensavers
+#cask "aerial" # https://github.com/JohnCoates/Aerial
+#cask "brooklyn" # https://github.com/pedrommcarrasco/Brooklyn
+#cask "developerexcuses" # https://github.com/kimar/DeveloperExcuses
+
