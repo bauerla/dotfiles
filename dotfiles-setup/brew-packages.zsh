@@ -1,5 +1,19 @@
 #!/bin/zsh
 
+# brew-install.zsh runs as a separate process, so its shellenv eval doesn't carry
+# over here — re-run it in this script's own shell if brew isn't on PATH yet
+# (e.g. running these scripts back-to-back without reopening the terminal).
+if [[ $(command -v brew) == "" ]]; then
+  if [[ -x /opt/homebrew/bin/brew ]]; then
+    eval "$(/opt/homebrew/bin/brew shellenv zsh)"
+  elif [[ -x /usr/local/bin/brew ]]; then
+    eval "$(/usr/local/bin/brew shellenv zsh)"
+  else
+    print -P "%F{red}brew not found on PATH and not installed at the expected location.%f\nRun %Bbrew-install.zsh%b first, then rerun this script."
+    exit 1
+  fi
+fi
+
 export HOMEBREW_NO_INSTALL_CLEANUP=1 # manually cleanup after install process
 export HOMEBREW_CASK_OPTS="--appdir=~/Applications" # install to user App dir (also in .zprofile)
 
